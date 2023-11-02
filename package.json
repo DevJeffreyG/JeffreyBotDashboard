@@ -1,0 +1,22 @@
+{
+  "name": "jeffreybotdashboard",
+  "version": "1.0.0",
+  "description": "The dashboard that works with DevJeffreyG's discord bot configuration, and information center",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon -x \"cls && node\" index.js"
+  },
+  "author": "DevJeffreyG",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "discord.js": "^14.13.0",
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "path": "^0.12.7",
+    "superagent": "^8.1.2"
+  }
+}
