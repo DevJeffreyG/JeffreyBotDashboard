@@ -8,10 +8,11 @@ class Dashboard {
     /**
      * 
      * @param {Guild} guild Discord Guild Object
-     * @param {Enums.ApiUpdate} enums 
+     * @param {Enums} enums 
      */
     constructor(guild, enums) {
-        this.ApiUpdate = enums;
+        this.Enums = enums;
+        this.ApiUpdate = this.Enums.ApiUpdate
         this.guild = guild;
 
         this.guild.allchannels = guild.channels;
@@ -77,7 +78,8 @@ class Dashboard {
 
         let res = await query.json();
 
-        this.doc = res;
+        if (!res) this.logout(this.Enums.Status.BotDown);
+        else this.doc = res;
     }
 
     /**
@@ -1369,73 +1371,79 @@ class Dashboard {
         dropdowns.src = '/src/js/DropDowns.js';
         document.head.appendChild(dropdowns);
 
-        await this.#getDocument();
-        this.container = document.querySelector("div.container");
+        try {
+            await this.#getDocument();
 
-        // Página
-        switch (this.query?.page) {
-            case "active_modules":
-                await this.#activeModulesHandler();
-                this.#type = this.ApiUpdate.ActiveModules;
-                break;
+            this.container = document.querySelector("div.container");
 
-            case "quantities":
-                await this.#quantitiesHandler();
-                this.#type = this.ApiUpdate.Quantities;
-                break;
+            // Página
+            switch (this.query?.page) {
+                case "active_modules":
+                    await this.#activeModulesHandler();
+                    this.#type = this.ApiUpdate.ActiveModules;
+                    break;
 
-            case "functions":
-                await this.#functionsHandler();
-                this.#type = this.ApiUpdate.Functions;
-                break;
+                case "quantities":
+                    await this.#quantitiesHandler();
+                    this.#type = this.ApiUpdate.Quantities;
+                    break;
 
-            case "roles":
-                await this.#rolesHandler();
-                this.#type = this.ApiUpdate.Roles;
-                break;
+                case "functions":
+                    await this.#functionsHandler();
+                    this.#type = this.ApiUpdate.Functions;
+                    break;
 
-            case "levels":
-                await this.#levelRolesHandler();
-                this.#type = this.ApiUpdate.LevelRoles;
-                break;
+                case "roles":
+                    await this.#rolesHandler();
+                    this.#type = this.ApiUpdate.Roles;
+                    break;
 
-            case "categories":
-                await this.#categoriesHandler();
-                this.#type = this.ApiUpdate.Categories;
-                break;
+                case "levels":
+                    await this.#levelRolesHandler();
+                    this.#type = this.ApiUpdate.LevelRoles;
+                    break;
 
-            case "channels":
-                await this.#channelsHandler();
-                this.#type = this.ApiUpdate.Channels;
-                break;
+                case "categories":
+                    await this.#categoriesHandler();
+                    this.#type = this.ApiUpdate.Categories;
+                    break;
 
-            case "chat_rewards":
-                await this.#channelRewardsHandler();
-                this.#type = this.ApiUpdate.RewardChannels;
-                break;
+                case "channels":
+                    await this.#channelsHandler();
+                    this.#type = this.ApiUpdate.Channels;
+                    break;
+
+                case "chat_rewards":
+                    await this.#channelRewardsHandler();
+                    this.#type = this.ApiUpdate.RewardChannels;
+                    break;
+            }
+
+            this.#sync()
+
+            // Cambiar el color del boton del sidebar seleccionado
+            let sidebarItems = Array.from(this.sidebar.querySelectorAll("a"));
+            const subpageSelected = sidebarItems.find(x => x.href.includes(this.query?.page));
+            if (subpageSelected) subpageSelected.classList.add("active");
+            else sidebarItems.find(x => x.getAttribute("href") === `./${this.guild.id}`)?.classList.add("active");
+
+            if (this.sidebar.clientHeight / subpageSelected?.offsetTop < 1.5) {
+                console.info(this.sidebar.clientHeight / subpageSelected.offsetTop)
+                this.sidebar.parentElement.scroll({ top: subpageSelected.offsetTop, behavior: "smooth" })
+            }
+
+            this.#switches();
+            this.#inputs();
+
+            this.#drop("role-drop");
+            this.#drop("channel-drop");
+            this.#drop("category-drop");
+
+            this.#buttons();
+        } catch (err) {
+            console.error(err);
+            console.log("No se pudo conectar a la base de datos");
         }
-
-        this.#sync()
-
-        // Cambiar el color del boton del sidebar seleccionado
-        let sidebarItems = Array.from(this.sidebar.querySelectorAll("a"));
-        const subpageSelected = sidebarItems.find(x => x.href.includes(this.query?.page));
-        if (subpageSelected) subpageSelected.classList.add("active");
-        else sidebarItems.find(x => x.getAttribute("href") === `./${this.guild.id}`)?.classList.add("active");
-
-        if (this.sidebar.clientHeight / subpageSelected?.offsetTop < 1.5) {
-            console.info(this.sidebar.clientHeight / subpageSelected.offsetTop)
-            this.sidebar.parentElement.scroll({ top: subpageSelected.offsetTop, behavior: "smooth" })
-        }
-
-        this.#switches();
-        this.#inputs();
-
-        this.#drop("role-drop");
-        this.#drop("channel-drop");
-        this.#drop("category-drop");
-
-        this.#buttons();
     }
 
     /**
@@ -1570,13 +1578,19 @@ class Dashboard {
 
         const cancelButton = document.querySelector("#cancelChanges");
         cancelButton.addEventListener("click", async () => {
-            await this.#getDocument();
-            this.#sync();
-            this.changes.clear();
-            removeWork();
+            try {
+                await this.#getDocument();
 
-            const announcer = document.querySelector(".announcer");
-            announcer.classList.remove("active");
+                this.#sync();
+                this.changes.clear();
+                removeWork();
+
+                const announcer = document.querySelector(".announcer");
+                announcer.classList.remove("active");
+            } catch (err) {
+                console.error(err);
+                console.log("No se pudo conectar a la base de datos");
+            }
         })
 
         const saveButton = document.querySelector("#saveChanges");
@@ -1683,7 +1697,7 @@ class Dashboard {
 
         this.#createSidebarCopy()
 
-        this.#handleQueries();
+        this.#handleQueries().catch(err => console.log("triple catch", err));
     }
 
     async #validate() {
@@ -1945,7 +1959,18 @@ class Dashboard {
         })
     }
 
-    logout() {
-        return window.location.replace("/logout");
+    logout(status) {
+        if (status)
+            switch (status) {
+                case this.Enums.Status.BotDown:
+                    window.open("/status", "_blank").focus()
+                    goToLogout();
+                    break;
+            }
+        else return goToLogout();
+
+        function goToLogout() {
+            window.location.replace("/logout");
+        }
     }
 }

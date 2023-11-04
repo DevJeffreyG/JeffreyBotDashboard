@@ -26,8 +26,12 @@ const { Session } = require("./public/src/utils");
 const session = new Session();
 app.Session = session;
 
-webRoutes(app);
-postHandler(app);
-errorHandler(app);
+try {
+    webRoutes(app);
+    postHandler(app);
+    errorHandler(app);
+} catch (err) {
+    console.error(err);
+}
 
 app.listen(app.get("port"), () => console.log("🟢 Using port", app.get("port")));

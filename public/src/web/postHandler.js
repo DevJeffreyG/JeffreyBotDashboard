@@ -13,7 +13,8 @@ module.exports = (app) => {
             .set({
                 guildid: req.header("guildid"),
                 apitype: Number(req.header("apitype")),
-                querytype: req.header("querytype")
+                querytype: req.header("querytype"),
+                auth: process.env.TOKEN
             })
             .type('application/json');
 
@@ -23,6 +24,7 @@ module.exports = (app) => {
     app.post("/api/db/add-changelog", async (req, res) => {
         const query = await superagent
             .post(`${process.env.JeffreyBotEnd}/api/db/add-changelog`)
+            .set("auth", process.env.TOKEN)
             .send(req.body);
 
         res.send(query.body);

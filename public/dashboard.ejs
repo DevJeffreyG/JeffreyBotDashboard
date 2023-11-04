@@ -136,8 +136,7 @@
                                         var g = '<%- guildId %>';
 
                                         function initDashboard(data) {
-                                            console.log(data)
-                                            if (data.guild.code) {
+                                            if (!data) {
                                                 window.location.replace("/dashboard/")
                                                 window.open(`/invite/?guildId=${g}`, '_blank').focus();
                                             }
@@ -150,7 +149,7 @@
 
                                             document.title += ` — ${guild.name}`;
 
-                                            const dashboard = new Dashboard(guild, <%- JSON.stringify(Enums.ApiUpdate) %>)
+                                            const dashboard = new Dashboard(guild, <%- JSON.stringify(Enums) %>)
                                             .setUrl('<%-req.url%>');
                                             dashboard.init();
                                         }
@@ -176,9 +175,8 @@
                                                 initDashboard(<%- JSON.stringify(cached) %>);
                                             <%} else {
                                                 res.clearCookie(`fetchedGuild-${guildId}`);
-                                            %>
-                                                window.location.replace("/logout")
-                                            <%}%>
+                                                res.redirect("/dashboard");
+                                            }%>
                                     </script>
                                 </dashboard>
                                 <%}%>

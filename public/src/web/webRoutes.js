@@ -128,32 +128,36 @@ module.exports = (app) => {
     app.get("/api/get-guild", async (req, res) => {
         const guildId = req.header("guildid");
 
-        if (!guildId) return res.status(400)
+        if (!guildId) return res.status(500)
             .send({
                 error: { message: "missing guildid" },
                 status_code: 400
             });
 
-        const query = await superagent.get(`${API_ENDPOINT}/guilds/${guildId}`)
-            .set("authorization", `Bot ${process.env.TOKEN}`);
+        try {
+            const query = await superagent.get(`${API_ENDPOINT}/guilds/${guildId}`)
+                .set("authorization", `Bot ${process.env.TOKEN}`);
 
-        const query_channels = await superagent.get(`${API_ENDPOINT}/guilds/${guildId}/channels`)
-            .set("authorization", `Bot ${process.env.TOKEN}`);
+            const query_channels = await superagent.get(`${API_ENDPOINT}/guilds/${guildId}/channels`)
+                .set("authorization", `Bot ${process.env.TOKEN}`);
 
-        const guild = query.body;
-        const channels = query_channels.body;
+            const guild = query.body;
+            const channels = query_channels.body;
 
-        if (guild.code === 50001) return res.status(400)
-            .send({
-                error: { message: "client not in guild", response: guild },
-                status_code: 400
-            })
+            if (guild.code === 50001) return res.status(400)
+                .send({
+                    error: { message: "client not in guild", response: guild },
+                    status_code: 400
+                })
 
-        res.cookie(`fetchedGuild-${guild.id}`, guild.name, { maxAge: ms("5m") });
+            res.cookie(`fetchedGuild-${guild.id}`, guild.name, { maxAge: ms("5m") });
 
-        session.addGuildInfo(guild, channels);
+            session.addGuildInfo(guild, channels);
 
-        res.send({ guild, channels });
+            res.send({ guild, channels });
+        } catch (err) {
+            res.status(300).send(false);
+        }
     })
     app.get("/api/sendlog", async (req, res) => {
         let channelId = req.header("channelid");
@@ -181,25 +185,32 @@ module.exports = (app) => {
     app.get("/api/db/get-guild", async (req, res) => {
         const guildId = req.header("guildid");
 
-        if (!guildId) return res.status(400)
+        if (!guildId) return res.status(500)
             .send({
                 error: { message: "missing guildid" },
                 status_code: 400
             });
 
-        const query = await superagent
-            .get(`${process.env.JeffreyBotEnd}/api/db/get-guild`)
-            .set("guildId", guildId);
+        try {
+            const query = await superagent
+                .get(`${process.env.JeffreyBotEnd}/api/db/get-guild`)
+                .set("guildId", guildId)
+                .set("auth", `${process.env.TOKEN}`);
 
-        res.send(query.body)
+            res.send(query.body)
+        } catch (err) {
+            res.status(500).send(false);
+        }
     })
     app.get("/api/db/get-changelogs", async (req, res) => {
         const query = await superagent
-            .get(`${process.env.JeffreyBotEnd}/api/db/get-changelogs`);
+            .get(`${process.env.JeffreyBotEnd}/api/db/get-changelogs`)
+            .set("auth", `${process.env.TOKEN}`);
 
         res.send(query.body);
     })
     app.get("/api/guild/has-permissions", async (req, res) => {
+        if(!session.token) return res.status(500);
         const guildId = req.header("guildid");
 
         const query = await superagent.get(`${API_ENDPOINT}/users/@me/guilds`)
