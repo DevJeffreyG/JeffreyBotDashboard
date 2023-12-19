@@ -471,8 +471,6 @@ class Dashboard {
         this.#findAndSync("announcements-youtube-videos", roles)
         this.#findAndSync("announcements-youtube-shorts", roles)
         this.#findAndSync("announcements-twitch", roles)
-        this.#findAndSync("announcements-polls", roles)
-        this.#findAndSync("announcements-bets", roles)
 
         this.#findAndSync("levels", roles)
 
@@ -1092,19 +1090,7 @@ class Dashboard {
             max: 1
         });
 
-        let polls = this.#createRoleSelector("rpolls", {
-            title: "Encuestas",
-            id: "announcements-polls",
-            max: 1
-        });
-
-        let bets = this.#createRoleSelector("rbets", {
-            title: "Apuestas",
-            id: "announcements-bets",
-            max: 1
-        });
-
-        this.#appendChilds(announcements, [dsRole, yt, ytshorts, tv, polls, bets]);
+        this.#appendChilds(announcements, [dsRole, yt, ytshorts, tv]);
 
         this.#appendChilds(contents, [staff, generals, announcements])
     }
