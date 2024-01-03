@@ -95,7 +95,7 @@
 
                                 console.log("Hubo un error.")
                                 form.reset();
-                            })
+                            }).catch(err => console.error(err));
                     }
                 }
             </script>
@@ -115,6 +115,7 @@
                                 await createPatch(changelog)
                             }
                         })
+                        .catch(err => console.error(err));
 
                 
                         async function createPatch(changelog) {
