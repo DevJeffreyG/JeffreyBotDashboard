@@ -391,7 +391,6 @@ class Dashboard {
         this.#findAndSync("functions-birthdays", active)
         this.#findAndSync("functions-darkshop", active)
         this.#findAndSync("functions-rep_to_currency", active)
-        this.#findAndSync("functions-currency_to_exp", active)
         this.#findAndSync("functions-staff_reminders", active)
 
         this.#findAndSync("logs-guild-messageDelete", active)
@@ -446,6 +445,8 @@ class Dashboard {
         const functions = this.doc.settings.functions;
         this.#findAndSync("adjust-shop", functions);
         this.#findAndSync("adjust-darkshop", functions);
+        this.#findAndSync("adjust-petshop", functions);
+        this.#findAndSync("adjust-exshop", functions);
         this.#findAndSync("adjust-coins", functions);
         this.#findAndSync("adjust-chat_rewards", functions);
         this.#findAndSync("adjust-claim_rep", functions);
@@ -699,7 +700,6 @@ class Dashboard {
         let bd = this.#createBoolSelector("birthdays", { title: "Cumpleaños", id: "functions-birthdays" });
         let ds = this.#createBoolSelector("darkshop", { title: "DarkShop", id: "functions-darkshop" });
         let repcurr = this.#createBoolSelector("rep_to_currency", { title: "Rep -> $", id: "functions-rep_to_currency" });
-        let currexp = this.#createBoolSelector("currency_to_exp", { title: "$ -> EXP", id: "functions-currency_to_exp" });
         let staffreminders = this.#createBoolSelector("staff_reminders", { title: "Recordatorios al STAFF", id: "functions-staff_reminders" });
 
         this.#appendChilds(funciones, [suggestions, tickets, flogs, bd, ds, repcurr, currexp, staffreminders]);
@@ -796,7 +796,7 @@ class Dashboard {
                 id: "darkshop-baseprice"
             }, { min: 1 }),
             this.#createNumberSelector("base", {
-                title: "Dinero dado por nivel",
+                title: "Dinero dado por rep",
                 placeholder: "El dinero dado por cada punto de reputación",
                 id: "currency_per_rep"
             }, { min: 1 }),
@@ -976,6 +976,16 @@ class Dashboard {
             id: "adjust-darkshop"
         });
 
+        let petadjust = this.#createBoolSelector("adjpet", {
+            title: "Ajustar precios de la tienda de mascotas",
+            id: "adjust-petshop"
+        });
+
+        let exadjust = this.#createBoolSelector("adjex", {
+            title: "Ajustar precios de la tienda externa",
+            id: "adjust-exshop"
+        });
+
         let chatrwadjust = this.#createBoolSelector("adjchat", {
             title: "Ajustar el dinero dado al hablar",
             id: "adjust-chat_rewards"
@@ -1002,7 +1012,7 @@ class Dashboard {
         });
 
         this.#appendChilds(main, [saveRoles, lvlsOldRole, dayRemindSug, dayRemindTicket]);
-        this.#appendChilds(money, [shopadjust, dsadjust, chatrwadjust, coinsadjust, claimrepadjust, rouletteadjust, betsadjust]);
+        this.#appendChilds(money, [shopadjust, dsadjust, petadjust, exadjust, chatrwadjust, coinsadjust, claimrepadjust, rouletteadjust, betsadjust]);
 
         this.#appendChilds(contents, [main, money])
     }
