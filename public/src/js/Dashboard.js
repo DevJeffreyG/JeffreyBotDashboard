@@ -702,7 +702,7 @@ class Dashboard {
         let repcurr = this.#createBoolSelector("rep_to_currency", { title: "Rep -> $", id: "functions-rep_to_currency" });
         let staffreminders = this.#createBoolSelector("staff_reminders", { title: "Recordatorios al STAFF", id: "functions-staff_reminders" });
 
-        this.#appendChilds(funciones, [suggestions, tickets, flogs, bd, ds, repcurr, currexp, staffreminders]);
+        this.#appendChilds(funciones, [suggestions, tickets, flogs, bd, ds, repcurr, staffreminders]);
 
         /*
         ========

@@ -2,9 +2,13 @@ class Session {
     constructor() {
     }
 
-    setToken(type, token) {
-        this.token_type = type;
-        this.token = token;
+    setToken(authinfo) {
+
+
+        this.token_type = authinfo.token_type;
+        this.token = authinfo.access_token;
+        this.refresh = authinfo.refresh_token;
+        this.expires = authinfo.expires_in;
 
         return this;
     }

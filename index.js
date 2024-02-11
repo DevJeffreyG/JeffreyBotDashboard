@@ -13,6 +13,7 @@ app.set("port", process.env.PORT || 10000);
 
 app.set("view engine", "ejs");
 app.set("views", app.get("root"));
+app.set('trust proxy', true)
 
 app.use(express.static(app.get("root")));
 app.use(express.static(path.join(__dirname, "/public/src")));

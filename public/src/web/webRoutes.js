@@ -11,6 +11,7 @@ const { Locale, Session, Dashboard } = require("../utils");
 const superagent = require("superagent");
 const Express = require("express")();
 const ms = require("ms");
+const jwt = require("jsonwebtoken");
 
 const API_ENDPOINT = "https://discord.com/api/v10";
 const REDIRECT_URI = `${process.env.HOME_PAGE}/api/discord-callback`;
@@ -57,7 +58,12 @@ module.exports = (app) => {
         if (client.readyAt) return res.sendStatus(200)
         return res.sendStatus(503)
     });
-    app.get("/", (req, res) => { prepare("home", { req, res }) });
+    app.get("/", (req, res) => {
+        const token = jwt.sign({ ip: req.ip }, process.env.TOKEN, { expiresIn: "30m" });
+        res.cookie("token", token);
+
+        prepare("home", { req, res })
+    });
 
     app.get("/dashboard", (req, res) => { prepare("./dashboard", { req, res }) });
     app.get("/dashboard/*/", (req, res) => { prepare("./dashboard", { req, res }) });
@@ -96,8 +102,6 @@ module.exports = (app) => {
 
         const auth = auth_query.body;
 
-        const { access_token, token_type } = auth;
-
         const user_query = await superagent.get(`${API_ENDPOINT}/users/@me`)
             .set("authorization", `${auth.token_type} ${auth.access_token}`);
 
@@ -106,7 +110,7 @@ module.exports = (app) => {
             error: { message: "couldn't get user", response: user }
         })
 
-        session.setToken(token_type, access_token);
+        session.setToken(auth);
         session.setDiscordUser(user)
 
         await getUserGuilds();
@@ -195,7 +199,7 @@ module.exports = (app) => {
             const query = await superagent
                 .get(`${process.env.JeffreyBotEnd}/api/db/get-guild`)
                 .set("guildId", guildId)
-                .set("auth", `${process.env.TOKEN}`);
+                .set("auth", req.cookies.token);
 
             res.send(query.body)
         } catch (err) {
@@ -203,14 +207,19 @@ module.exports = (app) => {
         }
     })
     app.get("/api/db/get-changelogs", async (req, res) => {
-        const query = await superagent
-            .get(`${process.env.JeffreyBotEnd}/api/db/get-changelogs`)
-            .set("auth", `${process.env.TOKEN}`);
+        try {
+            const query = await superagent
+                .get(`${process.env.JeffreyBotEnd}/api/db/get-changelogs`)
+                .set("auth", req.cookies.token);
 
-        res.send(query.body);
+            res.send(query.body);
+        } catch (err) {
+            res.status(500).send(false);
+        }
+
     })
     app.get("/api/guild/has-permissions", async (req, res) => {
-        if(!session.token) return res.status(500);
+        if (!session.token) return res.status(500);
         const guildId = req.header("guildid");
 
         const query = await superagent.get(`${API_ENDPOINT}/users/@me/guilds`)
