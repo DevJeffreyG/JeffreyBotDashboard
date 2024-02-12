@@ -44,7 +44,20 @@ const ValidateToken = function (req, res) {
   return true;
 }
 
+const Markdown = function (str) {
+  return str
+    .replace(/(?:\*\*)(?:(?!\s))((?:(?!\*\*|\n).)+)(?:\*\*)/g, '<b>$1</b>')
+    .replace(/(?:\*)(?:(?!\s))((?:(?!\n|\*).)+)(?:\*)/g, '<i>$1</i>')
+    .replace(/(?:~)(?:(?!\s))((?:(?!\n|~).)+)(?:~)/g, '<s>$1</s>')
+    .replace(/(?:__)(?:(?!\s))((?:(?!\n|__).)+)(?:__)/g, '<u>$1</u>')
+    .replace(/(?:_)(?:(?!\s))((?:(?!\n|_).)+)(?:_)/g, '<u>$1</u>')
+    .replace(/(?:##)(?:(?!\s))((?:(?!\n|##).)+)(?:##)/g, '<h2>$1</h2>')
+    .replace(/\\n/g, "<br/>")
+
+}
+
 module.exports = {
   UpdateObj,
-  ValidateToken
+  ValidateToken,
+  Markdown
 }

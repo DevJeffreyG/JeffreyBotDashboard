@@ -6,7 +6,8 @@ const Bases = {
     ]
 };
 
-const { Locale, Session, Dashboard } = require("../utils");
+const { Locale, Session } = require("../utils");
+const { ValidateToken, Markdown } = require("../../../src/Functions");
 
 const superagent = require("superagent");
 const Express = require("express")();
@@ -42,6 +43,7 @@ module.exports = (app) => {
     app.get("/creator/projects", (req, res) => { prepare("./subpages/creator/projects", { req, res }) });
 
     app.get("/changelog", (req, res) => { prepare("./changelog", { req, res }) })
+    app.get("/tos", (req, res) => { prepare("./tos", { req, res }) })
 
     /* ===== SOCIAL LINKS ===== */
     app.get("/creator/discord", (req, res) => { res.redirect("https://discord.gg/fJvVgkN") });
@@ -81,6 +83,7 @@ module.exports = (app) => {
 
     /* ===== API CALLS ===== */
     app.get("/api/discord-callback", async (req, res) => {
+        if (!ValidateToken(req, res)) res.sendStatus(401);
         const code = req.query.code;
 
         if (!code) return res.status(400)
@@ -118,18 +121,8 @@ module.exports = (app) => {
         res.cookie("user", user)
         res.redirect("/dashboard/")
     });
-    app.get("/api/get-dashboard/", async (req, res) => {
-        let guildId = req.header("guildid")
-        const dashboard = new Dashboard(guildId);
-
-        session.setDashboard(dashboard);
-
-        console.log("Cache is")
-        console.log(session.dashboard.guildId);
-
-        res.send(dashboard);
-    })
     app.get("/api/get-guild", async (req, res) => {
+        if (!ValidateToken(req, res)) res.sendStatus(401);
         const guildId = req.header("guildid");
 
         if (!guildId) return res.status(500)
@@ -164,6 +157,7 @@ module.exports = (app) => {
         }
     })
     app.get("/api/sendlog", async (req, res) => {
+        if (!ValidateToken(req, res)) res.sendStatus(401);
         let channelId = req.header("channelid");
         let changes = req.header("changes");
         let page = req.header("page");
@@ -187,6 +181,7 @@ module.exports = (app) => {
         res.send(response)
     })
     app.get("/api/db/get-guild", async (req, res) => {
+        if (!ValidateToken(req, res)) res.sendStatus(401);
         const guildId = req.header("guildid");
 
         if (!guildId) return res.status(500)
@@ -207,6 +202,7 @@ module.exports = (app) => {
         }
     })
     app.get("/api/db/get-changelogs", async (req, res) => {
+        if (!ValidateToken(req, res)) return res.sendStatus(401);
         try {
             const query = await superagent
                 .get(`${process.env.JeffreyBotEnd}/api/db/get-changelogs`)
@@ -217,6 +213,18 @@ module.exports = (app) => {
             res.status(500).send(false);
         }
 
+    })
+    app.get("/api/db/get-tos", async (req, res) => {
+        if (!ValidateToken(req, res)) res.sendStatus(401);
+        try {
+            const query = await superagent
+                .get(`${process.env.JeffreyBotEnd}/api/db/get-tos`)
+                .set("auth", req.cookies.token);
+
+            res.send(query.body)
+        } catch (err) {
+            res.status(500).send(false);
+        }
     })
     app.get("/api/guild/has-permissions", async (req, res) => {
         if (!session.token) return res.status(500);
@@ -260,6 +268,7 @@ module.exports = (app) => {
             session,
             Enums,
             Bases,
+            Markdown,
             req,
             res
         }

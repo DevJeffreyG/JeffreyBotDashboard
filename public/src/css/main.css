@@ -455,6 +455,12 @@ body {
     text-align: center;
 }
 
+.card #subtitle {
+    text-align: center;
+    font-weight: 400;
+    margin: 0;
+}
+
 .card > #content {
     font-size: 1.5em;
 }

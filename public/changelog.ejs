@@ -124,7 +124,7 @@
 
                             const desc = document.createElement("div")
                             desc.className = "description";
-                            desc.id = String(changelog.id);
+                            desc.id = String(changelog._id);
 
                             const version = document.createElement("h1")
                             const slogan = document.createElement("p")
@@ -180,7 +180,11 @@
                                 if(!fetchedDesc.endsWith(".") && !(fetchedDesc.endsWith(":") || fetchedDesc.endsWith("!") || fetchedDesc.endsWith("?")))
                                     fetchedDesc += ".";
 
-                                desc.innerText = fetchedDesc;
+                                const Markdown = <%- Markdown %>;
+
+                                fetchedDesc = Markdown(fetchedDesc);
+
+                                desc.innerHTML = fetchedDesc;
                                 
                                 listItem.appendChild(titleContainer);
                                 listItem.appendChild(desc);
