@@ -16,6 +16,7 @@
     --primaryo1: #daff521a;
 
     --text-color: var(--secondary);
+    --literal-link: #ffe1bf;
     --copy-color: #383b3d;
     --semitrans: rgba(255, 255, 255, 0.24);
     --link-hover: #8ae678;
@@ -184,6 +185,7 @@ body {
 .link-show {
     user-select: none;
     text-decoration: underline !important;
+    color: var(--literal-link) !important;
 }
 
 .link-show:hover {

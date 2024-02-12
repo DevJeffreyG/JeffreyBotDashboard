@@ -44,6 +44,7 @@ module.exports = (app) => {
 
     app.get("/changelog", (req, res) => { prepare("./changelog", { req, res }) })
     app.get("/tos", (req, res) => { prepare("./tos", { req, res }) })
+    app.get("/privacy", (req, res) => { prepare("./privacy", { req, res }) })
 
     /* ===== SOCIAL LINKS ===== */
     app.get("/creator/discord", (req, res) => { res.redirect("https://discord.gg/fJvVgkN") });

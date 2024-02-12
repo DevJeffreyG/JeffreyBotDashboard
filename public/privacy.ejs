@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jeffrey Bot - ToS</title>
+    <title>Jeffrey Bot - Privacidad</title>
     <script src="https://cdn.jsdelivr.net/gh/dixonandmoe/rellax@master/rellax.min.js"></script>
     <%- include("./src/partials/momentjs") %>
 </head>
 
 <body>
     <%- include("./src/partials/index") %>
-        <h1 class="rellax-title">Términos y Condiciones</h1>
+        <h1 class="rellax-title">Política de Privacidad</h1>
         <div class="rellax-container first">
             <img src="../../src/imgs/CSBanner.png" alt="CS_Banner">
         </div>
@@ -20,7 +20,7 @@
             <div style="height: auto;" class="card reveal active keep">
                 <div class="description">
                     <h1 style="margin: 0.2rem 0; text-align: center;" id="title">Última actualización</h1>
-                    <h3 id="subtitle"><span id="tosDate"></span></h3>
+                    <h3 id="subtitle"><span id="privacyDate"></span></h3>
                     <p style="margin-top: 2rem;" id="content">
                         Cargando...
                     </p>
@@ -34,8 +34,8 @@
                 .then(res => {
                     const Markdown = <%- Markdown %>;
 
-                    document.querySelector("#tosDate").innerText = moment(res.info.terms_since).format("DD/MM/YYYY");
-                    document.querySelector("#content").innerHTML = Markdown(res.info.terms);
+                    document.querySelector("#privacyDate").innerText = moment(res.info.privacy_since).format("DD/MM/YYYY");
+                    document.querySelector("#content").innerHTML = Markdown(res.info.privacy);
                 })
         </script>
 
