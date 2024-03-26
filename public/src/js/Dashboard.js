@@ -451,7 +451,6 @@ class Dashboard {
         this.#findAndSync("adjust-chat_rewards", functions);
         this.#findAndSync("adjust-claim_rep", functions);
         this.#findAndSync("adjust-roulette", functions);
-        this.#findAndSync("adjust-staff_bets", functions);
 
         this.#findAndSync("levels_deleteOldRole", functions);
         this.#findAndSync("save_roles_onleft", functions);
@@ -1006,13 +1005,8 @@ class Dashboard {
             id: "adjust-roulette"
         });
 
-        let betsadjust = this.#createBoolSelector("betsdjst", {
-            title: "Ajustar los aumentos de apuestas predeterminadas",
-            id: "adjust-staff_bets"
-        });
-
         this.#appendChilds(main, [saveRoles, lvlsOldRole, dayRemindSug, dayRemindTicket]);
-        this.#appendChilds(money, [shopadjust, dsadjust, petadjust, exadjust, chatrwadjust, coinsadjust, claimrepadjust, rouletteadjust, betsadjust]);
+        this.#appendChilds(money, [shopadjust, dsadjust, petadjust, exadjust, chatrwadjust, coinsadjust, claimrepadjust, rouletteadjust]);
 
         this.#appendChilds(contents, [main, money])
     }
