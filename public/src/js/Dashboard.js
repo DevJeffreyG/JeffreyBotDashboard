@@ -454,8 +454,9 @@ class Dashboard {
 
         this.#findAndSync("levels_deleteOldRole", functions);
         this.#findAndSync("save_roles_onleft", functions);
-        this.#findAndSync("sug_remind", functions);
-        this.#findAndSync("ticket_remind", functions);
+        this.#findAndSync("staff_reminders-suggestions", functions);
+        this.#findAndSync("staff_reminders-tickets", functions);
+        this.#findAndSync("staff_reminders-bets", functions);
 
         const roles = this.doc.roles;
         this.#findAndSync("admins", roles)
@@ -951,13 +952,19 @@ class Dashboard {
         let dayRemindSug = this.#createNumberSelector("sugremind", {
             title: "Días pasados necesarios (sugerencias)",
             placeholder: "Días para que se recuerde las sugerencias sin respuesta",
-            id: "sug_remind"
+            id: "staff_reminders-suggestions"
         }, { min: 1 });
 
         let dayRemindTicket = this.#createNumberSelector("ticketremind", {
             title: "Días pasados necesarios (tickets)",
             placeholder: "Días para que se recuerde los tickets sin respuesta",
-            id: "ticket_remind"
+            id: "staff_reminders-tickets"
+        }, { min: 1 });
+
+        let dayRemindBet = this.#createNumberSelector("betremind", {
+            title: "Días pasados necesarios (apuestas)",
+            placeholder: "Días para que se recuerde las apuestas sin resultado",
+            id: "staff_reminders-bets"
         }, { min: 1 });
 
         // ECONOMIA
@@ -1005,7 +1012,7 @@ class Dashboard {
             id: "adjust-roulette"
         });
 
-        this.#appendChilds(main, [saveRoles, lvlsOldRole, dayRemindSug, dayRemindTicket]);
+        this.#appendChilds(main, [saveRoles, lvlsOldRole, dayRemindSug, dayRemindTicket, dayRemindBet]);
         this.#appendChilds(money, [shopadjust, dsadjust, petadjust, exadjust, chatrwadjust, coinsadjust, claimrepadjust, rouletteadjust]);
 
         this.#appendChilds(contents, [main, money])
