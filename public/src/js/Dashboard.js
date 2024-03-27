@@ -420,6 +420,13 @@ class Dashboard {
 
         this.#findAndSync("interest_days-secured", quantities);
 
+        this.#findAndSync("awards-tier1-price", quantities);
+        this.#findAndSync("awards-tier1-gift", quantities);
+        this.#findAndSync("awards-tier2-price", quantities);
+        this.#findAndSync("awards-tier2-gift", quantities);
+        this.#findAndSync("awards-tier3-price", quantities);
+        this.#findAndSync("awards-tier3-gift", quantities);
+
         this.#findAndSync("limits-bets-blackjack-min", quantities);
         this.#findAndSync("limits-bets-blackjack-max", quantities);
         this.#findAndSync("limits-bets-staff_bets-min", quantities);
@@ -805,6 +812,40 @@ class Dashboard {
                 title: "Para dinero asegurado",
                 placeholder: "14",
                 id: "interest_days-secured"
+            }, { min: 0 }),
+            this.#createSubtitle("Awards"),
+            this.#createSubtitle("Tier 1"),
+            this.#createNumberSelector("base", {
+                title: "Precio del premio",
+                placeholder: "100",
+                id: "awards-tier1-price"
+            }, { min: 1 }),
+            this.#createNumberSelector("base", {
+                title: "Beneficio del premio",
+                placeholder: "0",
+                id: "awards-tier1-gift"
+            }, { min: 0 }),
+            this.#createSubtitle("Tier 2"),
+            this.#createNumberSelector("base", {
+                title: "Precio del premio",
+                placeholder: "500",
+                id: "awards-tier2-price"
+            }, { min: 1 }),
+            this.#createNumberSelector("base", {
+                title: "Beneficio del premio",
+                placeholder: "100",
+                id: "awards-tier2-gift"
+            }, { min: 0 }),
+            this.#createSubtitle("Tier 3"),
+            this.#createNumberSelector("base", {
+                title: "Precio del premio",
+                placeholder: "1800",
+                id: "awards-tier3-price"
+            }, { min: 1 }),
+            this.#createNumberSelector("base", {
+                title: "Beneficio del premio",
+                placeholder: "700",
+                id: "awards-tier3-gift"
             }, { min: 0 })
         ])
 
