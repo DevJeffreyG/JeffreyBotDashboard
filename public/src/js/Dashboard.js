@@ -904,14 +904,15 @@ class Dashboard {
                 placeholder: "3",
                 id: "limits-pets-hunger-max"
             }, { min: 1 }),
+            this.#createSubtitle("Coins"),
             this.#createNumberSelector("limit", {
-                title: "Coins: Dinero mínimo",
+                title: "Dinero mínimo dado",
                 placeholder: "1",
                 id: "limits-currency-coins-min"
             }, { min: 1 }),
             this.#createNumberSelector("limit", {
-                title: "Coins: Dinero máximo",
-                placeholder: "1",
+                title: "Dinero máximo dado",
+                placeholder: "20",
                 id: "limits-currency-coins-max"
             }, { min: 1 })
         ])
@@ -980,81 +981,72 @@ class Dashboard {
         main.classList.add("wrap")
         main.append("Generales")
 
-        let saveRoles = this.#createBoolSelector("lvloldr", {
-            title: "Guardar roles al salir del server",
-            id: "save_roles_onleft"
-        });
-
-        let lvlsOldRole = this.#createBoolSelector("lvloldr", {
-            title: "Eliminar roles viejos por nivel",
-            id: "levels_deleteOldRole"
-        });
-
-        let dayRemindSug = this.#createNumberSelector("sugremind", {
-            title: "Días pasados necesarios (sugerencias)",
-            placeholder: "Días para que se recuerde las sugerencias sin respuesta",
-            id: "staff_reminders-suggestions"
-        }, { min: 1 });
-
-        let dayRemindTicket = this.#createNumberSelector("ticketremind", {
-            title: "Días pasados necesarios (tickets)",
-            placeholder: "Días para que se recuerde los tickets sin respuesta",
-            id: "staff_reminders-tickets"
-        }, { min: 1 });
-
-        let dayRemindBet = this.#createNumberSelector("betremind", {
-            title: "Días pasados necesarios (apuestas)",
-            placeholder: "Días para que se recuerde las apuestas sin resultado",
-            id: "staff_reminders-bets"
-        }, { min: 1 });
+        this.#appendChilds(main, [
+            this.#createBoolSelector("lvloldr", {
+                title: "Guardar roles al salir del server",
+                id: "save_roles_onleft"
+            }),
+            this.#createBoolSelector("lvloldr", {
+                title: "Eliminar roles viejos por nivel",
+                id: "levels_deleteOldRole"
+            }),
+            this.#createSubtitle("Recordatorios de STAFF"),
+            this.#createNumberSelector("sugremind", {
+                title: "Días pasados necesarios (sugerencias)",
+                placeholder: "Días para que se recuerde las sugerencias sin respuesta",
+                id: "staff_reminders-suggestions"
+            }, { min: 1 }),
+            this.#createNumberSelector("ticketremind", {
+                title: "Días pasados necesarios (tickets)",
+                placeholder: "Días para que se recuerde los tickets sin respuesta",
+                id: "staff_reminders-tickets"
+            }, { min: 1 }),
+            this.#createNumberSelector("betremind", {
+                title: "Días pasados necesarios (apuestas)",
+                placeholder: "Días para que se recuerde las apuestas sin resultado",
+                id: "staff_reminders-bets"
+            }, { min: 1 })
+        ]);
 
         // ECONOMIA
         let money = this.#createDivSection("money");
         money.classList.add("wrap")
         money.append("Economía")
 
-        let shopadjust = this.#createBoolSelector("adjshop", {
-            title: "Ajustar precios de la tienda",
-            id: "adjust-shop"
-        });
-
-        let dsadjust = this.#createBoolSelector("adjds", {
-            title: "Ajustar precios de la DarkShop",
-            id: "adjust-darkshop"
-        });
-
-        let petadjust = this.#createBoolSelector("adjpet", {
-            title: "Ajustar precios de la tienda de mascotas",
-            id: "adjust-petshop"
-        });
-
-        let exadjust = this.#createBoolSelector("adjex", {
-            title: "Ajustar precios de la tienda externa",
-            id: "adjust-exshop"
-        });
-
-        let chatrwadjust = this.#createBoolSelector("adjchat", {
-            title: "Ajustar el dinero dado al hablar",
-            id: "adjust-chat_rewards"
-        });
-
-        let coinsadjust = this.#createBoolSelector("adjcoins", {
-            title: "Ajustar recompensas de /coins",
-            id: "adjust-coins"
-        });
-
-        let claimrepadjust = this.#createBoolSelector("adjrep", {
-            title: "Ajustar recompensas de /claimrep",
-            id: "adjust-claim_rep"
-        });
-
-        let rouletteadjust = this.#createBoolSelector("adjrllt", {
-            title: "Ajustar recompensas de /roulette",
-            id: "adjust-roulette"
-        });
-
-        this.#appendChilds(main, [saveRoles, lvlsOldRole, dayRemindSug, dayRemindTicket, dayRemindBet]);
-        this.#appendChilds(money, [shopadjust, dsadjust, petadjust, exadjust, chatrwadjust, coinsadjust, claimrepadjust, rouletteadjust]);
+        this.#appendChilds(money, [
+            this.#createBoolSelector("adjshop", {
+                title: "Ajustar precios de la tienda",
+                id: "adjust-shop"
+            }),
+            this.#createBoolSelector("adjds", {
+                title: "Ajustar precios de la DarkShop",
+                id: "adjust-darkshop"
+            }),
+            this.#createBoolSelector("adjpet", {
+                title: "Ajustar precios de la tienda de mascotas",
+                id: "adjust-petshop"
+            }),
+            this.#createBoolSelector("adjex", {
+                title: "Ajustar precios de la tienda externa",
+                id: "adjust-exshop"
+            }),
+            this.#createBoolSelector("adjchat", {
+                title: "Ajustar el dinero dado al hablar",
+                id: "adjust-chat_rewards"
+            }),
+            this.#createBoolSelector("adjcoins", {
+                title: "Ajustar recompensas de /coins",
+                id: "adjust-coins"
+            }),
+            this.#createBoolSelector("adjrep", {
+                title: "Ajustar recompensas de /claimrep",
+                id: "adjust-claim_rep"
+            }),
+            this.#createBoolSelector("adjrllt", {
+                title: "Ajustar recompensas de /roulette",
+                id: "adjust-roulette"
+            })
+        ]);
 
         this.#appendChilds(contents, [main, money])
     }

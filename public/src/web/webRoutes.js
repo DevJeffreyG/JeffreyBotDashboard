@@ -37,7 +37,7 @@ module.exports = (app) => {
 
     /* ===== FOOTER LINKS ===== */
     app.get("/creator/", (req, res) => { prepare("./subpages/creator/", { req, res }) });
-    app.get("/creator/jeffreyg", (req, res) => { prepare("./subpages/creator/jeffreyg", { req, res }) });
+    app.get("/creator/jeffrey", (req, res) => { prepare("./subpages/creator/jeffrey", { req, res }) });
     app.get("/creator/projects", (req, res) => { prepare("./subpages/creator/projects", { req, res }) });
 
     app.get("/creator/projects", (req, res) => { prepare("./subpages/creator/projects", { req, res }) });
