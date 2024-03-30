@@ -56,10 +56,7 @@ module.exports = (app) => {
 
     /* ===== GENERAL LINKS ===== */
     app.get("/app-health", (req, res) => {
-        let client = require("../../../index");
-
-        if (client.readyAt) return res.sendStatus(200)
-        return res.sendStatus(503)
+        return res.sendStatus(200)
     });
     app.get("/", (req, res) => {
         const token = jwt.sign({ ip: req.ip }, process.env.TOKEN, { expiresIn: "30m" });
