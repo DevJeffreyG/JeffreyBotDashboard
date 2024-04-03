@@ -1236,7 +1236,7 @@ class Dashboard {
 
         let noti = this.#createDivSection("logs");
         noti.classList.add("wrap")
-        noti.append("Notifier [JeffreyG Only (WIP)]")
+        noti.append("Notifier [DEV Only (WIP)]")
 
         let yt = this.#createChannelSelector("cyt", {
             title: "YouTube",
