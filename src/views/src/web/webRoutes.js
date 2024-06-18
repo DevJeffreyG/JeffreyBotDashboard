@@ -1,5 +1,5 @@
 const { PermissionsBitField, codeBlock, EmbedBuilder } = require("discord.js");
-const Enums = require("../../../src/Enums");
+const Enums = require("../../../utils/Enums");
 const Bases = {
     "devIds": [
         "437668432604037142", "460913577105293313"
@@ -7,7 +7,7 @@ const Bases = {
 };
 
 const { Locale, Session } = require("../utils");
-const { ValidateToken, Markdown } = require("../../../src/Functions");
+const { ValidateToken, Markdown } = require("../../../utils/Functions");
 
 const superagent = require("superagent");
 const Express = require("express")();
@@ -49,7 +49,7 @@ module.exports = (app) => {
     /* ===== SOCIAL LINKS ===== */
     app.get("/creator/discord", (req, res) => { res.redirect("https://discord.gg/fJvVgkN") });
     app.get("/creator/youtube", (req, res) => { res.redirect("https://www.youtube.com/JeffreyG") });
-    app.get("/creator/twitter", (req, res) => { res.redirect("https://www.twitter.com/fakeJeffreyG") });
+    app.get("/creator/twitter", (req, res) => { res.redirect("https://www.twitter.com/eljeffrowo") });
 
     app.get("/support/github", (req, res) => { res.redirect("https://github.com/DevJeffreyG/JeffreyBot") });
     app.get("/support/discord", (req, res) => { res.redirect(`https://discord.gg/${process.env.SUPPORT_INVITE}`) });

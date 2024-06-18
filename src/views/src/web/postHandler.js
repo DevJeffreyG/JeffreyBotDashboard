@@ -1,6 +1,6 @@
 const Express = require("express")();
 const superagent = require("superagent");
-const { ValidateToken } = require("../../../src/Functions");
+const { ValidateToken } = require("../../../utils/Functions");
 
 /**
  * 
