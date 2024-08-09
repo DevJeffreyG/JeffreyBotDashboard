@@ -114,6 +114,7 @@ class Dashboard {
     #createList(array, excludeChildren, hidden = true, excludeEveryone = true) {
         let list = document.createElement("ul")
         list.classList.add("item-list");
+        list.classList.add("synchronizable");
         if (!hidden) list.classList.add("active")
 
         let exists = array;
@@ -213,11 +214,14 @@ class Dashboard {
             let plus = document.createElement("span")
             plus.classList.add("material-symbols-rounded")
             plus.append("add_circle");
-            plus.id = "plus-icon"
+            plus.id = "plus-icon";
             div.appendChild(plus)
 
-            div.dataset.interactable = "";
+            let search = document.createElement("p");
+            search.className = "search";
+            div.appendChild(search);
 
+            div.dataset.interactable = "";
         }
 
         parent.append(title)
@@ -245,11 +249,14 @@ class Dashboard {
             let plus = document.createElement("span")
             plus.classList.add("material-symbols-rounded")
             plus.append("add_circle");
-            plus.id = "plus-icon"
+            plus.id = "plus-icon";
             div.appendChild(plus)
 
-            div.dataset.interactable = "";
+            let search = document.createElement("p");
+            search.className = "search";
+            div.appendChild(search);
 
+            div.dataset.interactable = "";
         }
 
         parent.append(title)
@@ -277,11 +284,14 @@ class Dashboard {
             let plus = document.createElement("span")
             plus.classList.add("material-symbols-rounded")
             plus.append("add_circle");
-            plus.id = "plus-icon"
+            plus.id = "plus-icon";
             div.appendChild(plus)
 
-            div.dataset.interactable = "";
+            let search = document.createElement("p");
+            search.className = "search";
+            div.appendChild(search);
 
+            div.dataset.interactable = "";
         }
 
         parent.append(title)
@@ -346,6 +356,7 @@ class Dashboard {
     }
 
     #checkChanges() {
+        console.log(this.changes);
         const announcer = document.querySelector(".announcer");
         if (this.changes.size > 0) announcer.classList.add("active");
         else announcer.classList.remove("active")
@@ -366,6 +377,8 @@ class Dashboard {
             name: "[ ELIMINADO ]"
         };
 
+        d.classList.add("synchronizable")
+        d.classList.add("discordElement");
         d.dataset.id = id;
         d.innerHTML = guildItem.name;
 
@@ -383,6 +396,7 @@ class Dashboard {
     }
 
     #sync() {
+        console.log("-------------- SYNC WORK --------------");
         const active = this.doc.settings.active_modules
 
         this.#findAndSync("functions-suggestions", active)
@@ -540,6 +554,8 @@ class Dashboard {
         let listType = el.className.includes("role") ? this.guild.roles :
             el.className.includes("channel") ? this.guild.channels : this.guild.categories;
 
+        console.log(typeof active, active, id, el);
+
         switch (typeof active) {
             case "boolean": // Switches
                 if (active) el.classList.add("active");
@@ -553,7 +569,7 @@ class Dashboard {
 
             case "object":
                 if (Array.isArray(active)) {
-                    el.innerHTML = "";
+                    el.querySelectorAll(".synchronizable").forEach(e => e.remove());
                     active.forEach(id => {
                         let d = this.#itemOfList(id)
                         el.appendChild(d)
@@ -563,15 +579,17 @@ class Dashboard {
 
                     let list = this.#createList(listType, synced);
                     el.append(list)
-                } else {
-
+                } else if (active === null) {
+                    let list = this.#createList(listType, []);
+                    el.append(list)
                 }
                 break;
 
             case "string":
                 if (el.className.includes("drop")) {
                     if (active.length > 0) {
-                        el.innerHTML = "";
+                        el.querySelectorAll(".synchronizable").forEach(e => e.remove());
+
                         let d = this.#itemOfList(active)
                         el.appendChild(d)
                     }
@@ -583,19 +601,11 @@ class Dashboard {
 
             default:
                 if (el.className.includes("drop")) {
-                    el.innerHTML = "";
+                    el.querySelectorAll(".synchronizable").forEach(e => e.remove());
+
                     let list = this.#createList(listType, []);
                     el.append(list)
                 }
-        }
-
-        if (typeof el.dataset.interactable != "undefined") {
-            let plus = document.createElement("span")
-            plus.classList.add("material-symbols-rounded")
-            plus.append("add_circle");
-            plus.id = "plus-icon"
-
-            el.appendChild(plus)
         }
 
         return el;
@@ -1542,6 +1552,7 @@ class Dashboard {
 
             this.initial.set(drop.id, translate(drop.childNodes));
 
+            let searchQuery = [];
             drop.addEventListener("click", (click) => {
                 function arrayEquals(a, b) {
                     return Array.isArray(a) &&
@@ -1552,8 +1563,12 @@ class Dashboard {
 
                 let clicked = click.target;
 
+                console.log(clicked);
 
-                if (clicked.className.length < 1) {
+                // Es uno de los items seleccionables
+                if (clicked.classList.contains("discordElement") || clicked.classList.length === 0) {
+                    searchQuery = [];
+                    drop.querySelector(".search").innerHTML = "";
                     clicked = clicked.querySelector("div") ?? clicked;
 
                     if (clicked.closest(".item-list")) { // Un item de la lista a agregar
@@ -1582,6 +1597,31 @@ class Dashboard {
 
                 let list = drop.querySelector("ul")
                 list.classList.toggle("active");
+
+                if (list.classList.contains("active")) { // Si está activa, habilitar búsqueda
+                    searchQuery = [];
+                    window.onkeyup = (evt) => {
+                        let key = evt.key;
+                        let first = null;
+
+                        if (key[0] != key[0].toUpperCase() || key === " ") searchQuery.push(key)
+                        else if(key === "Backspace") searchQuery.pop();
+
+                        drop.querySelector(".search").innerHTML = searchQuery.join("");
+
+                        for(const li of list.childNodes) {
+                            let elementName = li.firstChild.textContent.toLowerCase(); // el nombre del elemento: rolename, channelname
+                            if (elementName.includes(searchQuery.join("")) && first === null) {
+                                first = li;
+                                break;
+                            }
+                        }
+
+                        if (first) list.scroll({ top: first.offsetTop, behavior: "smooth" })
+                    }
+                } else {
+                    window.onkeyup = null;
+                }
             })
         }
 
@@ -1773,18 +1813,16 @@ class Dashboard {
             const parent = document.querySelector("[data-type='sync-channelrewards'");
             let rawData = Array.from(parent.childNodes);
 
-            if (this.#querytype === "save") { // se está eliminado un role de niveles
+            if (this.#querytype === "save") { // se está eliminado un canal de recompensas
                 let info = [];
 
                 for (const section of rawData) {
                     const id = section.id; // la id del canal
-
-                    const channelContainer = section.querySelector(`[id='${id}'].channel-drop`);
-                    const channel = channelContainer.firstElementChild.dataset.id;
+                    const multiplier = section.querySelector("#channelwrap").dataset.multiplier;
 
                     info.push({
-                        channel,
-                        multiplier: section.dataset.multiplier
+                        channel: id,
+                        multiplier
                     })
                 }
 
