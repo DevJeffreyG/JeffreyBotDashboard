@@ -109,6 +109,29 @@
                         fetch("/api/db/get-changelogs")
                         .then(r => r.json())
                         .then(async db => {
+                            if (!db) {
+                                const Markdown = <%- Markdown %>;
+                                const parent = document.createElement("div");
+                                parent.className = "card long-card reveal right keep";
+                                const desc = document.createElement("div")
+                                desc.className = "description";
+                                desc.id = "err";
+
+                                const title = document.createElement("h1")
+                                title.innerText = "Nos topamos con una pared."
+
+                                const info = document.createElement("p")
+                                info.innerHTML = Markdown("No pudimos comunicarnos con **Jeffrey Bot**, inténtalo más tarde.")
+
+                                desc.appendChild(title)
+                                desc.appendChild(info)
+
+                                parent.append(desc)
+                                container.append(parent);
+
+                                return;
+
+                            }
                             db.sort((a, b) => b.version.localeCompare(a.version));
 
                             for await (const changelog of db) {

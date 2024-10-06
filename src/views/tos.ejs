@@ -33,6 +33,10 @@
                 .then(r => r.json())
                 .then(res => {
                     const Markdown = <%- Markdown %>;
+                    
+                    if(!res) {
+                        document.querySelector("#content").innerHTML = Markdown("No pudimos comunicarnos con **Jeffrey Bot**, inténtalo más tarde.")
+                    }
 
                     document.querySelector("#tosDate").innerText = moment(res.info.terms_since).format("DD/MM/YYYY");
                     document.querySelector("#content").innerHTML = Markdown(res.info.terms);
