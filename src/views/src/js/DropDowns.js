@@ -13,6 +13,6 @@ window.document.addEventListener("click", (click) => {
         actives.forEach(x => x.classList.remove("active"))
 
         const arrow = document.querySelector("span#arrow");
-        arrow.innerText = "arrow_drop_down";
+        if(arrow) arrow.innerText = "arrow_drop_down";
     }
 })

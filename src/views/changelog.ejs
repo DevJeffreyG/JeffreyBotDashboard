@@ -132,16 +132,41 @@
                                 return;
 
                             }
-                            db.sort((a, b) => b.version.localeCompare(a.version));
-
-                            for await (const changelog of db) {
-                                await createPatch(changelog)
-                            }
+                            db.sort((a, b) => Date.parse(b.timestamp) - Date.parse(a.timestamp));
+                            db = loadMoreChanges(db);
                         })
                         .catch(err => console.error(err));
 
+                        function loadMoreChanges(changes) {
+                            let max = changes.length >= 5 ? 5 : changes.length;
+                            for (let i = 0; i < max; i++) {
+                                const changelog = changes[i];
+                                
+                                try {
+                                    createPatch(changelog)
+                                }  catch(err) {
+                                    console.error("🔴 %s", err);
+                                }
+                            }
+
+                            changes.splice(0, max);
+
+                            const loadMore = document.createElement("div");
+                            loadMore.innerText = "Cargar más"
+                            loadMore.id = "loadMoreChanges";
+                            loadMore.classList.add("button");
+                            if(changes.length > 0) container.append(loadMore);
+
+                            loadMore.addEventListener("click", () => {
+                                container.lastElementChild.scrollIntoView({ behavior: "smooth" })
+                                changes = loadMoreChanges(changes);
+                                loadMore.remove();
+                            })
+
+                            return changes;
+                        }
                 
-                        async function createPatch(changelog) {
+                        function createPatch(changelog) {
                             const parent = document.createElement("div");
                             parent.className = "card long-card reveal right keep";
 
