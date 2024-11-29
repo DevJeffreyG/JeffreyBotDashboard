@@ -462,6 +462,8 @@ class Dashboard {
         this.#findAndSync("percentages-pets-basic_unlocked", quantities);
         this.#findAndSync("percentages-interests-secured", quantities);
 
+        this.#findAndSync("ignore_notifications-youtube_videos", quantities);
+        this.#findAndSync("ignore_notifications-youtube_shorts", quantities);
 
         const functions = this.doc.settings.functions;
         this.#findAndSync("adjust-shop", functions);
@@ -972,7 +974,25 @@ class Dashboard {
             }, { min: 0 })
         ])
 
-        this.#appendChilds(contents, [base, limits, percentages])
+        let ignorenoti = this.#createDivSection("ignorenoti");
+        ignorenoti.classList.add("wrap")
+        ignorenoti.append("Ignorar notificaciones [DEV Only (WIP)]")
+
+        this.#appendChilds(ignorenoti, [
+            this.#createNumberSelector("ignore_notifications", {
+                title: "Días pasados para ignorar (Vídeos)",
+                placeholder: "14",
+                id: "ignore_notifications-youtube_videos"
+            }, { min: 1 }),
+            this.#createNumberSelector("ignore_notifications", {
+                title: "Días pasados para ignorar (Shorts)",
+                placeholder: "14",
+                id: "ignore_notifications-youtube_shorts"
+            }, { min: 1 })
+        ])
+
+
+        this.#appendChilds(contents, [base, limits, percentages, ignorenoti])
     }
 
     async #functionsHandler() {
@@ -1605,11 +1625,11 @@ class Dashboard {
                         let first = null;
 
                         if (key[0] != key[0].toUpperCase() || key === " ") searchQuery.push(key)
-                        else if(key === "Backspace") searchQuery.pop();
+                        else if (key === "Backspace") searchQuery.pop();
 
                         drop.querySelector(".search").innerHTML = searchQuery.join("");
 
-                        for(const li of list.childNodes) {
+                        for (const li of list.childNodes) {
                             let elementName = li.firstChild.textContent.toLowerCase(); // el nombre del elemento: rolename, channelname
                             if (elementName.includes(searchQuery.join("")) && first === null) {
                                 first = li;

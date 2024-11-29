@@ -131,9 +131,11 @@ dashboard #sidebar a.active:hover {
 
 .wrap {
     display: flex;
-
+    font-size: 1.6em;
+    font-weight: bold;
     justify-content: center;
     align-items: center;
+    margin-top: 1rem;
 }
 
 .wrap.join {
@@ -170,6 +172,7 @@ dashboard #sidebar a.active:hover {
 }
 
 .section .item {
+    font-weight: normal;
     box-sizing: border-box;
 
     padding: 2rem;
