@@ -36,23 +36,21 @@ module.exports = (app) => {
     app.get("/status", (req, res) => { res.redirect(uptime) });
 
     /* ===== FOOTER LINKS ===== */
-    app.get("/creator/", (req, res) => { prepare("./subpages/creator/", { req, res }) });
-    app.get("/creator/jeffrey", (req, res) => { prepare("./subpages/creator/jeffrey", { req, res }) });
-    app.get("/creator/projects", (req, res) => { prepare("./subpages/creator/projects", { req, res }) });
-
-    app.get("/creator/projects", (req, res) => { prepare("./subpages/creator/projects", { req, res }) });
-
+    app.get(["/creator/", "/coloredstealth"], (req, res) => { prepare("./subpages/creator/coloredstealth", { req, res }) });
+    app.get(["/creator/jeffrey", "/creator/developer", "/creator/jeff", "/developer"], (req, res) => { prepare("./subpages/creator/developer", { req, res }) });
+    app.get(["/creator/projects", "/projects"], (req, res) => { prepare("./subpages/creator/projects", { req, res }) });
     app.get("/changelog", (req, res) => { prepare("./changelog", { req, res }) })
     app.get("/tos", (req, res) => { prepare("./tos", { req, res }) })
     app.get("/privacy", (req, res) => { prepare("./privacy", { req, res }) })
 
     /* ===== SOCIAL LINKS ===== */
-    app.get("/creator/discord", (req, res) => { res.redirect("https://discord.gg/fJvVgkN") });
-    app.get("/creator/youtube", (req, res) => { res.redirect("https://www.youtube.com/JeffreyG") });
-    app.get("/creator/twitter", (req, res) => { res.redirect("https://www.twitter.com/eljeffrowo") });
+    app.get(["/creator/discord", "/discord"], (req, res) => { res.redirect("https://discord.gg/fJvVgkN") });
+    app.get(["/creator/youtube", "/youtube"], (req, res) => { res.redirect("https://www.youtube.com/@jeffrowo") });
+    app.get(["/creator/twitter", "/creator/x", "/twitter", "/x"], (req, res) => { res.redirect("https://www.twitter.com/eljeffrowo") });
+    app.get(["/creator/twitch", "/twitch"], (req, res) => { res.redirect("https://www.twitch.com/jeffrowo") });
 
-    app.get("/support/github", (req, res) => { res.redirect("https://github.com/DevJeffreyG/JeffreyBot") });
-    app.get("/support/discord", (req, res) => { res.redirect(`https://discord.gg/${process.env.SUPPORT_INVITE}`) });
+    app.get(["/support/github", "/github"], (req, res) => { res.redirect("https://github.com/DevJeffreyG/JeffreyBot") });
+    //app.get("/support/discord", (req, res) => { res.redirect(`https://discord.gg/${process.env.SUPPORT_INVITE}`) });
 
     /* ===== GENERAL LINKS ===== */
     app.get("/app-health", (req, res) => {

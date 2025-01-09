@@ -34,6 +34,7 @@
     --github: #000;
     --youtube: #ff0000;
     --twitter: #1D9BF0;
+    --twitch: #9146FF;
 }
 
 .material-symbols-rounded {
@@ -42,11 +43,11 @@
 }
 
 .material-symbols-rounded.thick {
-    font-variation-settings: 
-          'FILL' 1,
-          'wght' 700,
-          'GRAD' 200,
-          'opsz' 48 !important;
+    font-variation-settings:
+        'FILL' 1,
+        'wght' 700,
+        'GRAD' 200,
+        'opsz' 48 !important;
 }
 
 svg#ColoredStealth {
@@ -113,7 +114,7 @@ body {
 
     min-height: var(--bodyh);
     height: fit-content;
-    
+
     max-width: 100%;
 }
 
@@ -161,7 +162,7 @@ body {
     min-height: calc(75vh - var(--navh));
 
     flex-direction: column;
-    
+
     justify-content: center;
     align-items: center;
 }
@@ -174,6 +175,13 @@ body {
 
     height: 100% !important;
 }
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .border-up {
     border-radius: 15px 15px 0 0 !important;
 }
@@ -182,13 +190,13 @@ body {
     border-radius: 0 0 15px 15px !important;
 }
 
-.link-show {
+.show-link {
     user-select: none;
     text-decoration: underline !important;
     color: var(--literal-link) !important;
 }
 
-.link-show:hover {
+.show-link:hover {
     cursor: pointer;
     color: var(--link-hover) !important;
 }
@@ -231,9 +239,9 @@ body {
 
 .bubble {
     background-color: var(--bg-color);
-    
+
     overflow: hidden;
-    
+
     border: solid var(--primary) 2px;
     border-radius: 100%;
     box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
@@ -245,6 +253,21 @@ body {
 .bubble img {
     height: 100%;
     max-width: 300px;
+}
+
+#logo .social-icon {
+    height: 100%;
+    width: 100%;
+}
+
+#logo .social-icon:hover {
+    fill: #fff;
+    cursor: initial !important;
+    scale: 1.015;
+}
+
+#logo .social-icon {
+    fill: var(--none-color);
 }
 
 .social-icon {
@@ -272,8 +295,12 @@ body {
     fill: var(--youtube);
 }
 
-.social-icon.twitter:hover  {
+.social-icon.twitter:hover {
     fill: var(--twitter);
+}
+
+.social-icon.twitch:hover {
+    fill: var(--twitch);
 }
 
 .line {
@@ -298,7 +325,7 @@ body {
     min-height: 10px;
 }
 
-.boxes > * {
+.boxes>* {
     margin: 30px;
 
     background-color: var(--bg-black);
@@ -324,7 +351,7 @@ body {
     box-shadow: inset 0px 0px 0px 2px var(--primary), 0 0 1000px var(--primaryo1);
 }
 
-.guild-child > #bg {
+.guild-child>#bg {
     filter: blur(16px);
     opacity: 0.5;
 }
@@ -402,44 +429,45 @@ body {
 }
 
 /*
-    ==========
-    = REVEAL =
-    ==========
+==========
+= REVEAL =
+==========
 */
 
 .reveal {
     position: relative;
 }
 
-.reveal > * {
+.reveal>* {
     transition: all 1s ease;
     opacity: 0;
 }
 
-.reveal.left > * {
+.reveal.left>* {
     transform: translateX(-150px) !important;
 }
 
-.reveal.right > * {
+.reveal.right>* {
     transform: translateX(150px) !important;
 }
 
-.reveal.active > * {
+.reveal.active>* {
     transform: none !important;
     opacity: 1;
 }
 
 /*
-    =========
-    = CARDS =
-    =========
+=========
+= CARDS =
+=========
 */
 
-.card, .long-card{
+.card,
+.long-card {
     display: flex;
 
     background-color: var(--bg-color);
-    
+
     width: calc(100% - 2*4em);
     height: 300px;
     padding: 4em;
@@ -453,7 +481,7 @@ body {
     min-height: 300px;
 }
 
-.card > #title {
+.card>#title {
     text-align: center;
 }
 
@@ -463,7 +491,7 @@ body {
     margin: 0;
 }
 
-.card > #content {
+.card>#content {
     font-size: 1.5em;
 }
 
@@ -487,6 +515,20 @@ body {
     gap: 1.5em;
 
     justify-content: center;
+}
+
+.card.column {
+    height: fit-content;
+    flex-direction: column;
+}
+
+.card.column>* {
+    padding-bottom: 2em;
+}
+
+img#ref {
+    overflow: hidden;
+    max-width: 60%;
 }
 
 .card .description #title {
@@ -526,7 +568,7 @@ body {
 
     display: block;
     content: "";
-    
+
     width: 2rem;
     height: 2rem;
 
@@ -559,7 +601,7 @@ body {
 
     background-color: var(--announcer);
     border-radius: 10px;
-    
+
     left: 50%;
     transform: translateX(-50%);
     bottom: -5rem;

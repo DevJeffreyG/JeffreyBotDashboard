@@ -65,7 +65,7 @@ const Markdown = function (str) {
       let txt = el.match(/\[(.*?)\]/)[1]; //solo txt
       let url = el.match(/\((.*?)\)/)[1]; //solo link
 
-      str = str.replace(el, '<a class="link-show" href="' + url + '" target="_blank">' + txt + '</a>')
+      str = str.replace(el, '<a class="show-link" href="' + url + '" target="_blank">' + txt + '</a>')
     }
   }
 

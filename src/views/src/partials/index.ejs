@@ -46,7 +46,7 @@
                     const revElement = reveals[i];
                     let windowHeight = window.innerHeight;
                     let revealTop = revElement.getBoundingClientRect().top;
-                    let revealPoint = 150;
+                    let revealPoint = revElement.classList.contains("late") ? 400 : 150;
                     if (revealTop < windowHeight - revealPoint) revElement.classList.add("active")
                     else if (!revElement.classList.contains("keep")) revElement.classList.remove("active");
                 }

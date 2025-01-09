@@ -35,7 +35,7 @@
                     const Markdown = <%- Markdown %>;
 
                     if(!res) {                        
-                        document.querySelector("#content").innerHTML = Markdown("No pudimos comunicarnos con **Jeffrey Bot**, inténtalo más tarde.")
+                        document.querySelector("#content").innerHTML = Markdown("No pudimos comunicarnos con **[Jeffrey Bot](/status)**, inténtalo más tarde.")
                     }
 
                     document.querySelector("#privacyDate").innerText = moment(res.info.privacy_since).format("DD/MM/YYYY");

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colored Stealth - Desarrollador</title>
+    <script src="https://cdn.jsdelivr.net/gh/dixonandmoe/rellax@master/rellax.min.js"></script>
+</head>
+
+<body class="dark">
+    <%- include("../../src/partials/index") %>
+
+        <h1 class="rellax-title">Desarrollador</h1>
+        <div class="rellax-container first">
+            <img src="../../src/imgs/GBanner.jpg" alt="CS_Banner">
+        </div>
+
+        <div class="container bg after-rellax">
+            <div class="card reveal left keep">
+                <div class="avatar" id="logo">
+                    <img src="../../src/imgs/pfp2025.png" alt="Jeffrowo">
+                </div>
+                <div class="description">
+                    <h1 id="title">Conoce al desarrollador</h1>
+                    <p id="content">
+                        Gabriel Páez es un estudiante de <span id="age"></span> años de Colombia,
+                        apasionado por el dibujo, programación y entretenimiento.
+                    </p>
+                    <p id="content">
+                        Gabriel siempre quiere hacerlo todo por su cuenta y por eso tarda en completar sus proyectos en
+                        mente.
+                    </p>
+                    <p id="content">
+                        Su seudónimo en internet ha cambiado durante muchos años, sin embargo, siempre ha girado entorno a "Jeff": JeffTheCrack,
+                        JeffreyGMD, JeffreyG y más recientemente <b>Jeffrowo</b>.
+                    </p>
+                    <p id="content">
+                        Naturalmente, puedes simplemente llamarlo Jeff ;)
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container after-rellax">
+            <div class="card dark reveal right keep column">
+                <div class="description">
+                    <h1 id="title">El personaje "Jeff"</h1>
+                    <p id="content">
+                        Jeffrey (Jeff) es el personaje "fursona", con el que Gabriel se representa en internet.
+                    </p>
+                    <p id="content">
+                        Jeff es un zorro con colores naranja, blanco y verde en su mayoría. El color favorito de
+                        Gabriel es el verde y debía estar presente en su personaje, claro.
+                    </p>
+                </div>
+                <div class="reveal late center keep">
+                    <img class="complete-img" id="ref" src="../../src/imgs/JeffFoxRef.png" alt="Fursona Jeff">
+                </div>
+            </div>
+            <div class="container after-rellax">
+                <div class="card column reveal left keep">
+                    <div class="description">
+                        <h1 id="title">Furry Fandom</h1>
+                        <p id="content">
+                            Al principio, Jeff estaba pensado en ser un zorro con colores naturales, pero con el tiempo
+                            fue evolucionando con patrones y colores diferentes.
+                        </p>
+                        <p id="content">
+                            Gabriel creó a Jeff aproximadamente a finales de 2018, principios de 2019.
+                        </p>
+                        <p id="content">
+                            No es secreto para nadie. Gabriel es parte del Furry Fandom, y si conoces sus cuentas, supongo
+                            que... ¿considérate afortunad@?
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card dark reveal right keep">
+                <h1 id="title">Eso es todo, ¡por ahora!
+            </div>
+        </div>
+
+        <script>
+            var rellax = new Rellax(".rellax-container", {
+                speed: -9
+            })
+
+            let span = document.querySelector("#age");
+            let bd = new Date("12/29/2005");
+
+            span.innerHTML = `${Math.floor((new Date() - bd) / 31536000000)}`
+        </script>
+
+        <%- include("../../src/partials/footer") %>
+</body>
+
+</html>

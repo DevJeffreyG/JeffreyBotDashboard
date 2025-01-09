@@ -1740,7 +1740,7 @@ class Dashboard {
 
         let cancel = document.createElement("p")
         cancel.id = "cancelChanges";
-        cancel.classList.add("link-show")
+        cancel.classList.add("show-link")
         cancel.innerHTML = "Cancelar";
         cancel.style.marginLeft = "auto";
         cancel.style.marginRight = ".4em";
@@ -1760,28 +1760,28 @@ class Dashboard {
         // agregar secciones al sidebar
         this.sidebar = document.querySelector("div#sidebar");
 
-        const home = this.#createSidebarOption(null, "Inicio")
+        this.#createSidebarOption(null, "Inicio")
 
         this.#addSeparator(this.sidebar);
 
-        const active = this.#createSidebarOption("active_modules", "Módulos activos")
-        const quantities = this.#createSidebarOption("quantities", "Cantidades")
-        const functions = this.#createSidebarOption("functions", "Funciones")
+        this.#createSidebarOption("active_modules", "Módulos activos")
+        this.#createSidebarOption("quantities", "Cantidades")
+        this.#createSidebarOption("functions", "Funciones")
 
         this.#addSeparator(this.sidebar);
 
-        const roles = this.#createSidebarOption("roles", "Roles")
-        const levels = this.#createSidebarOption("levels", "Roles de niveles")
+        this.#createSidebarOption("roles", "Roles")
+        this.#createSidebarOption("levels", "Roles de niveles")
 
         this.#addSeparator(this.sidebar);
 
-        const canales = this.#createSidebarOption("channels", "Canales")
-        const categorias = this.#createSidebarOption("categories", "Categorías")
-        const rewards = this.#createSidebarOption("chat_rewards", "Canales de recompensas")
+        this.#createSidebarOption("channels", "Canales")
+        this.#createSidebarOption("categories", "Categorías")
+        this.#createSidebarOption("chat_rewards", "Canales de recompensas")
 
         this.#addSeparator(this.sidebar);
-        const ayuda = this.#createSidebarOption("help", "Ayuda")
-        const faq = this.#createSidebarOption("faq", "FAQ")
+        this.#createSidebarOption("help", "Ayuda")
+        this.#createSidebarOption("faq", "FAQ")
 
         this.#addSeparator(this.sidebar);
 

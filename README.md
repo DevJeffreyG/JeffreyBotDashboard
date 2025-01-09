@@ -1,7 +1,6 @@
 <div align="center">
-  <a href=https://discord.gg/fJvVgkN><img src="https://github.com/DevJeffreyG/JeffreyBot/blob/master/src/resources/imgs/GitBanner.png?raw=true"></a>
+  <img src="https://github.com/DevJeffreyG/JeffreyBot/blob/master/src/resources/imgs/GitBanner.png?raw=true">
   
-  [![JeffreyGServer](https://img.shields.io/discord/447797737216278528.svg?label=JG%20Server&logo=Discord&color=%235865F2&style=for-the-badge)](https://discord.gg/fJvVgkN)
   [![DiscordJS](https://img.shields.io/github/package-json/dependency-version/devjeffreyg/jeffreybotdashboard/discord.js?label=D.JS&style=for-the-badge&color=%235865F2)](https://npmjs.com/package/discord.js)
   
   [![Version](https://img.shields.io/github/package-json/v/devjeffreyg/jeffreybotdashboard?label=JB%20Dashboard&style=for-the-badge)](https://github.com/DevJeffreyG/JeffreyBotDashboard)
