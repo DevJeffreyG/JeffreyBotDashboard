@@ -63,6 +63,6 @@ jobs:
         id: deploy-to-webapp
         with:
           app-name: 'jeffreybot-dashboard'
-          slot-name: 'Production'
+          slot-name: 'production'
           package: ./jb.zip
           
