@@ -7,14 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jeffrey Bot - Privacidad</title>
     <script src="https://cdn.jsdelivr.net/gh/dixonandmoe/rellax@master/rellax.min.js"></script>
-    <%- include("./src/partials/momentjs") %>
+    <%- include("../static/partials/styles") %>
+    <%- include("../static/partials/momentjs") %>
 </head>
 
 <body>
-    <%- include("./src/partials/index") %>
+    <%- include("../static/partials/index") %>
         <h1 class="rellax-title">Política de Privacidad</h1>
         <div class="rellax-container first">
-            <img src="../../src/imgs/CSBanner.png" alt="CS_Banner">
+            <img src="/static/imgs/CSBanner.png" alt="CS_Banner">
         </div>
         <div class="container after-rellax">
             <div style="height: auto;" class="card reveal active keep">
@@ -28,7 +29,7 @@
             </div>
         </div>
 
-        <script>
+        <script data-will_load>
             fetch("/api/db/get-tos")
                 .then(r => r.json())
                 .then(res => {
@@ -36,11 +37,16 @@
 
                     if(!res) {                        
                         document.querySelector("#content").innerHTML = Markdown("No pudimos comunicarnos con **[Jeffrey Bot](/status)**, inténtalo más tarde.")
+                        document.body.dataset.loaded = ""
+                        return;
                     }
 
                     document.querySelector("#privacyDate").innerText = moment(res.info.privacy_since).format("DD/MM/YYYY");
                     document.querySelector("#content").innerHTML = Markdown(res.info.privacy);
+
+                    document.body.dataset.loaded = ""
                 })
+                .catch(console.error)
         </script>
 
         <script>
@@ -49,7 +55,8 @@
             })
         </script>
 
-        <%- include("./src/partials/footer") %>
+        <%- include("../static/partials/footer") %>
 </body>
 
 </html>
+<%- include("../static/partials/loading") %>

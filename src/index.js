@@ -1,33 +1,16 @@
 require("dotenv").config();
 const express = require("express");
-const path = require("path");
-
-const cookieParser = require('cookie-parser');
-const bodyParser = require("body-parser");
 
 // express
 const app = express();
 
-app.set("root", path.join(__dirname, "/views"));
-app.set("port", process.env.PORT || 10000);
+const { webRoutes, postHandler, errorHandler, middlewares } = require("./web");
+const { SessionManager } = require("./utils");
 
-app.set("view engine", "ejs");
-app.set("views", app.get("root"));
-app.set('trust proxy', true)
-
-app.use(express.static(app.get("root")));
-app.use(express.static(path.join(__dirname, "/views/src")));
-app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json());
-
-const { webRoutes, postHandler, errorHandler } = require("./views/src/web");
-const { Session } = require("./views/src/utils");
-
-const session = new Session();
-app.Session = session;
+app.Sessions = new SessionManager();
 
 try {
+    middlewares(app);
     webRoutes(app);
     postHandler(app);
     errorHandler(app);

@@ -1,6 +1,6 @@
 {
   "name": "jeffreybotdashboard",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "The dashboard that works with DevJeffreyG's discord bot configuration, and information center",
   "main": "index.js",
   "scripts": {
@@ -18,6 +18,7 @@
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "path": "^0.12.7",
-    "superagent": "^10.1.1"
+    "superagent": "^10.1.1",
+    "uuid": "^11.1.0"
   }
 }

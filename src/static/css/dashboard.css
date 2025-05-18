@@ -1,0 +1,633 @@
+:root {
+    --selector-height: 110px;
+
+    --newColor: var(--primary);
+    --featuredColor: rgb(255, 230, 0);
+    --recommendedColor: rgb(255, 94, 0);
+}
+
+/*
+    =============
+    = GUILD SEL =
+    =============
+*/
+
+.guild-child {
+    display: flex;
+    position: relative;
+
+    border-radius: 30px;
+    overflow: hidden;
+
+    align-items: center;
+    justify-content: center;
+
+    transition: 0.1s ease;
+}
+
+.guild-child:hover:not(#dummy) {
+    animation-play-state: paused !important;
+    cursor: pointer;
+    box-shadow: inset 0px 0px 0px 2px var(--primary), 0 0 1000px var(--primaryo1);
+}
+
+.guild-child>.guild-bg {
+    filter: blur(16px);
+    opacity: 0.5;
+}
+
+.guild-child .guild-icon {
+    position: absolute;
+    border-radius: 50%;
+
+    height: 50%;
+    width: auto;
+    max-width: 85px;
+
+    top: 15%;
+
+    z-index: 3;
+}
+
+.guild-child .guild-icon::after {
+    position: absolute;
+    content: "?";
+}
+
+.guild-child .guild-info {
+    position: absolute;
+    bottom: 1em;
+
+    border-radius: 10px;
+
+    min-height: 1.1em;
+    max-width: 85%;
+
+    padding: .31em;
+
+    background-color: var(--semitrans);
+
+    text-align: center;
+
+    z-index: 1;
+}
+
+.guild-child .guild-bg {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+}
+
+/*
+    =============
+    = GUILD ADM =
+    =============
+*/
+
+dashboard {
+    display: flex;
+    height: calc(100vh - var(--navh));
+}
+
+/*
+    =============
+    = CONTAINER =
+    =============
+*/
+
+.container.sidebar {
+    justify-content: flex-start;
+
+    width: calc(100% - var(--sidebarw));
+    max-height: 100%;
+
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.container #contents {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: flex-start;
+    align-items: center;
+
+    width: 90%;
+    /* height: calc(100% - var(--navh) - 2.5rem - 1.25rem*2); */
+
+    gap: .5em;
+    padding-bottom: 5rem;
+    margin-bottom: 3rem;
+
+    border-radius: 30px;
+
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+#contents h1 {
+    margin: 0;
+}
+
+/*
+    ===========
+    = SIDEBAR =
+    ===========
+*/
+
+dashboard .sidebar-wrap {
+    position: relative;
+    height: calc(100%);
+    width: var(--sidebarw);
+
+    box-sizing: border-box;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    padding: .3em;
+
+    background-color: var(--bg-black);
+}
+
+dashboard #sidebar {
+    display: flex;
+    box-sizing: border-box;
+
+    flex-direction: column;
+
+    padding: .3em;
+    margin-bottom: 50px;
+}
+
+dashboard #copyright {
+    position: sticky;
+    background-color: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: inherit;
+    height: 50px;
+
+    bottom: -.3em;
+    left: -.3em;
+}
+
+dashboard #sidebar .title {
+    height: fit-content;
+    margin: .9rem auto .9rem .9rem;
+    font-size: 1.6em;
+}
+
+dashboard #sidebar a {
+    font-size: 1em;
+    border-radius: 12px;
+
+    min-height: 20px;
+    padding: 1em;
+    margin: .2em;
+
+    cursor: default;
+
+    transition: all .1s;
+}
+
+dashboard #sidebar a:hover {
+    background-color: var(--bg-darker);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+dashboard #sidebar a#title:hover {
+    background-color: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+dashboard #sidebar a.active {
+    background-color: var(--bg-darker);
+}
+
+dashboard #sidebar a.active:hover {
+    background-color: var(--bg-color);
+}
+
+/*
+    ===========
+    = CONFIGS =
+    ===========
+*/
+
+.wrap {
+    display: flex;
+    font-size: 1.6em;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.wrap.join {
+    gap: 0;
+    width: 95%;
+
+    padding: 1em 0;
+
+    background-color: var(--bg-black);
+}
+
+.section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    justify-content: flex-start;
+
+    border-radius: 15px;
+    gap: .5rem;
+}
+
+.section>* {
+    width: 100%;
+    height: auto;
+
+    align-items: center;
+}
+
+.section>h4 {
+    width: 100%;
+    height: auto;
+    text-align: center;
+}
+
+.section .item {
+    font-weight: normal;
+    box-sizing: border-box;
+
+    padding: 2rem;
+    border-radius: 15px;
+
+    width: 95%;
+    background-color: var(--bg-black);
+}
+
+.wrap.join .item {
+    width: 100%;
+    border-radius: 0;
+}
+
+.item>div,
+.item>input {
+    margin-left: auto;
+}
+
+/*
+=========
+= BOOLS =
+=========
+*/
+
+.bool-selector {
+    display: flex;
+    max-height: var(--selector-height);
+
+    font-size: 40px;
+}
+
+/*
+===========
+= NUMBERS =
+===========
+*/
+
+.number-selector {
+    display: flex;
+    max-height: var(--selector-height);
+
+    font-size: 40px;
+}
+
+.item input {
+    width: 30%;
+    padding: .4rem;
+
+    border: solid 2px var(--dark);
+
+    border-radius: 10px;
+
+    transition: all 50ms ease;
+}
+
+
+.item input:focus {
+    outline: solid 2px var(--primary);
+}
+
+/*
+=========
+= ROLES =
+=========
+*/
+
+.role-selector,
+.channel-selector {
+    display: flex;
+    min-height: var(--selector-height);
+
+    font-size: 40px;
+}
+
+.role-drop,
+.channel-drop,
+.category-drop {
+    position: relative;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: .05em;
+
+    cursor: pointer;
+
+    min-height: 1.1em;
+    width: 45%;
+    padding: .2em;
+    padding-right: calc(.2em + 30px);
+
+    box-sizing: border-box;
+
+    background-color: rgba(51, 51, 51, 0.5);
+    border-radius: 10px;
+}
+
+.role-drop:not([data-interactable]),
+.channel-drop:not([data-interactable]),
+.category-drop:not([data-interactable]) {
+    cursor: not-allowed;
+}
+
+#plus-icon {
+    position: absolute;
+    height: fit-content !important;
+    top: 25%;
+    right: .3em;
+}
+
+.role-drop>div,
+.channel-drop>div,
+.category-drop>div {
+    user-select: none;
+    height: 80%;
+    font-size: .45em;
+    width: fit-content;
+
+    padding: .1em .5em;
+    border-radius: 10px;
+
+    background-color: var(--semitrans);
+    border: solid 1px transparent;
+}
+
+.role-drop>div::before {
+    content: "@";
+    margin-right: .1em;
+}
+
+.channel-drop>div::before,
+.category-drop>div::before {
+    content: "#";
+    margin-right: .1em;
+}
+
+/*
+===========================
+= LISTAS (ROLES, CANALES) =
+===========================
+*/
+
+.item-list.active {
+    transform: translateY(0px);
+    visibility: visible;
+    opacity: 1;
+    filter: none;
+}
+
+.item.list-active > * {
+    z-index: 999;
+}
+
+.item-list {
+    filter: blur(2px);
+    visibility: hidden;
+    opacity: 0;
+
+    position: absolute;
+    z-index: 10;
+    display: flex;
+
+    top: 100%;
+    transform: translateY(10px);
+
+    flex-direction: column;
+    align-items: center;
+
+    background-color: var(--bg-black);
+    height: 400px;
+    width: 100%;
+
+    overflow-y: auto;
+
+    border-radius: 0 0 10px 10px;
+    transition: all 100ms ease;
+}
+
+.item-list li {
+    font-size: .5em;
+
+    display: flex;
+    flex-direction: row;
+
+    height: auto;
+    width: 90%;
+
+    padding: .5em;
+    border-radius: 10px;
+
+    transition: background 50ms ease;
+}
+
+.item-list li:hover {
+    background-color: var(--semitrans);
+}
+
+/* EFECTOS DE SELECTORES */
+
+@keyframes moveGradient {
+    0% {
+        background-position: 0 0;
+    }
+
+    50% {
+        background-position: 100% 0;
+    }
+
+    100% {
+        background-position: 0 0;
+    }
+}
+
+.featured-effect,
+.new-effect {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+div.item>* {
+    position: relative;
+    z-index: 3;
+}
+
+div .inner {
+    --effectRadius: 10px;
+    background: var(--bg-black);
+    height: calc(var(--selector-height) - var(--effectRadius));
+    width: calc(100% - var(--effectRadius));
+    border-radius: inherit;
+}
+
+.featured-effect,
+.new-effect,
+.recommended-effect {
+    position: relative !important;
+    display: flex;
+    overflow: visible;
+}
+
+.new-effect .inner {
+    --effectRadius: 5px;
+}
+
+.item .inner {
+    --centerInner: calc(.5rem / 2);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.featured-effect::before,
+.new-effect::before,
+.recommended-effect::before,
+.recommended-effect::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-size: 400% !important;
+    width: 100%;
+    border-radius: inherit;
+}
+
+.featured-effect::before {
+    background: repeating-linear-gradient(45deg,
+            var(--primary),
+            var(--primary) 25%,
+            var(--secondary) 50%,
+            var(--primary) 75%,
+            var(--primary) 100%);
+
+    animation: moveGradient 10s linear infinite;
+    z-index: 0 !important;
+}
+
+.new-effect::before {
+    background: linear-gradient(45deg,
+            rgba(255, 255, 255, 0) 0%,
+        rgba(102, 102, 102, 0.75) 50%,
+        rgba(255, 255, 255, 0) 100%);
+    animation: moveGradient 3s linear forwards infinite;
+    z-index: 0 !important;
+}
+
+.recommended-effect::before {
+    z-index: 0 !important;
+}
+
+.recommended-effect::after {
+    z-index: -1 !important;
+    filter: blur(25px);
+    transform: translate3d(0, 0, 0);
+}
+
+.recommended-effect::before,
+.recommended-effect::after {
+    background: linear-gradient(45deg,
+            #ff595e,
+            #ffca3a,
+            #8ac926,
+            #1982c4,
+            #6a4c93,
+            #ff6700);
+    animation: moveGradient 3s linear infinite;
+}
+
+.removing-effect::before {
+    opacity: 0;
+    transition: all ease 1s;
+}
+
+.effect-symbol {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    transform: translate(-.5rem, -1rem);
+    padding: .5rem;
+    background-color: var(--bg-darker);
+    border-radius: 100%;
+}
+
+.new-effect .effect-symbol {
+    transform: rotate(-30deg) translate(-.5rem, -1rem);
+}
+
+.effect-symbol:hover, .selector-help:hover {
+    cursor: help;
+}
+
+.effect-symbol .tooltip {
+    background-color: inherit;
+    transform: translate(0, -1.5rem);
+    transform-origin: left center
+}
+
+.new-effect .effect-symbol .tooltip {
+    transform: rotate(30deg) translate(0, -1.5rem);
+}
+
+.effect-symbol:hover .tooltip, .selector-help:hover .tooltip {
+    opacity: 1;
+    transition-delay: .5s;
+}
+
+.selector-help {
+    top: -1em;
+    font-size: .5em;
+
+    z-index: 5 !important;
+}
+
+.selector-help .tooltip {
+    transform: translate(.5rem, -.5rem);
+    transform-origin: left center;
+    font-size: .8em;
+
+    width: max-content;
+    max-width: 25vw;
+
+    white-space: wrap;
+}

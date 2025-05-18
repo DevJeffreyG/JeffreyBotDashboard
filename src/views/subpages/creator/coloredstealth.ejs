@@ -6,28 +6,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jeffrey Bot - Colored Stealth</title>
+    <%- include("../../../static/partials/styles") %>
     <script src="https://cdn.jsdelivr.net/gh/dixonandmoe/rellax@master/rellax.min.js"></script>
 </head>
 
 <body class="dark">
-    <%- include("../../src/partials/index") %>
+    <%- include("../../../static/partials/index") %>
 
         <h1 class="rellax-title">Colored Stealth</h1>
         <div class="rellax-container first">
-            <img src="../../src/imgs/CSBanner.png" alt="CS_Banner">
+            <img src="/static/imgs/CSBanner.png" alt="CS_Banner">
         </div>
 
         <div class="container bg after-rellax">
             <div class="card reveal left keep">
                 <div id="logo">
-                    <%- include("../../src/svg/coloredstealth.svg") %>
+                    <%- include("../../../static/svg/coloredstealth.svg") %>
                 </div>
                 <div class="description">
                     <h1 id="title">¿Qué es Colored Stealth?</h1>
                     <p id="content">
                         Colored Stealth es el nombre en clave de un proyecto a manos de <a class="show-link"
                             href="/developer">@Jeffrowo</a>,
-                        que tiene el fin de recopilar los productos/proyectos distribuidos por su creador al público.
+                        que tiene el fin de recopilar los productos/proyectos distribuídos por su creador al público.
                     </p>
                 </div>
             </div>
@@ -45,13 +46,13 @@
                     </p>
                 </div>
                 <div id="logo">
-                    <img src="/src/imgs/jb_logo.png" alt="Jeffrey Bot Logo">
+                    <img src="/static/imgs/jb_logo.png" alt="Jeffrey Bot Logo">
                 </div>
             </div>
             <div class="container after-rellax">
                 <div class="card reveal right keep">
                     <div id="logo">
-                        <%- include("../../src/svg/discord.svg") %>
+                        <%- include("../../../static/svg/discord.svg") %>
                     </div>
                     <div class="description">
                         <h1 id="title">Acceso anticipado</h1>
@@ -93,7 +94,9 @@
             })
         </script>
 
-        <%- include("../../src/partials/footer") %>
+        <%- include("../../../static/partials/footer") %>
 </body>
 
 </html>
+
+<%- include("../../../static/partials/loading") %>

@@ -4,12 +4,12 @@
 <head>
     <title>Jeffrey Bot - Cambios</title>
     <script src="https://cdn.jsdelivr.net/gh/dixonandmoe/rellax@master/rellax.min.js"></script>
-    <link rel="stylesheet" href="./src/css/forms.css">
-    <%- include("./src/partials/momentjs") %>
+    <%- include("../static/partials/styles") %>
+    <%- include("../static/partials/momentjs") %>
 </head>
 
 <body>
-    <%- include("./src/partials/index") %>
+    <%- include("../static/partials/index") %>
         <h1 class="rellax-title">Últimos Cambios</h1>
         <div class="rellax-container first">
             <div style="background-image: linear-gradient(to bottom, var(--dark), var(--primary), var(--dark)); height: 100%; width: 100%;"></div>
@@ -102,7 +102,7 @@
             <%}%>
 
                 <div id="parent" class="container bg after-rellax">
-                    <script>
+                    <script data-will_load>
                         const container = document.querySelector("#parent");
 
                         // agregar los cambios de la base de datos
@@ -129,11 +129,15 @@
                                 parent.append(desc)
                                 container.append(parent);
 
+                                document.body.dataset.loaded = ""
+                            
                                 return;
-
                             }
+                            
                             db.sort((a, b) => Date.parse(b.timestamp) - Date.parse(a.timestamp));
                             db = loadMoreChanges(db);
+
+                            document.body.dataset.loaded = ""
                         })
                         .catch(err => console.error(err));
 
@@ -264,7 +268,9 @@
                         speed: -9
                     })
                 </script>
-                <%- include("./src/partials/footer") %>
+                <%- include("../static/partials/footer") %>
 </body>
 
 </html>
+
+<%- include("../static/partials/loading") %>

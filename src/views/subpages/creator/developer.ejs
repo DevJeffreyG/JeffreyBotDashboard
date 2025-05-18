@@ -6,21 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Colored Stealth - Desarrollador</title>
-    <script src="https://cdn.jsdelivr.net/gh/dixonandmoe/rellax@master/rellax.min.js"></script>
+    <%- include("../../../static/partials/styles") %>
+        <script src="https://cdn.jsdelivr.net/gh/dixonandmoe/rellax@master/rellax.min.js"></script>
 </head>
 
 <body class="dark">
-    <%- include("../../src/partials/index") %>
+    <%- include("../../../static/partials/index") %>
 
         <h1 class="rellax-title">Desarrollador</h1>
         <div class="rellax-container first">
-            <img src="../../src/imgs/GBanner.jpg" alt="CS_Banner">
+            <img src="/static/imgs/BANNER.png" style="filter: blur(5px);" alt="Jeff Banner">
         </div>
 
         <div class="container bg after-rellax">
             <div class="card reveal left keep">
                 <div class="avatar" id="logo">
-                    <img src="../../src/imgs/pfp2025.png" alt="Jeffrowo">
+                    <img src="/static/imgs/pfp2025.png" alt="Jeffrowo">
                 </div>
                 <div class="description">
                     <h1 id="title">Conoce al desarrollador</h1>
@@ -33,7 +34,8 @@
                         mente.
                     </p>
                     <p id="content">
-                        Su seudónimo en internet ha cambiado durante muchos años, sin embargo, siempre ha girado entorno a "Jeff": JeffTheCrack,
+                        Su seudónimo en internet ha cambiado durante muchos años, sin embargo, siempre ha girado entorno
+                        a "Jeff": JeffTheCrack,
                         JeffreyGMD, JeffreyG y más recientemente <b>Jeffrowo</b>.
                     </p>
                     <p id="content">
@@ -56,7 +58,7 @@
                     </p>
                 </div>
                 <div class="reveal late center keep">
-                    <img class="complete-img" id="ref" src="../../src/imgs/JeffFoxRef.png" alt="Fursona Jeff">
+                    <img class="complete-img" id="ref" src="/static/imgs/JeffFoxRef.png" alt="Fursona Jeff">
                 </div>
             </div>
             <div class="container after-rellax">
@@ -71,8 +73,19 @@
                             Gabriel creó a Jeff aproximadamente a finales de 2018, principios de 2019.
                         </p>
                         <p id="content">
-                            No es secreto para nadie. Gabriel es parte del Furry Fandom, y si conoces sus cuentas, supongo
-                            que... ¿considérate afortunad@?
+                            No es secreto para nadie. Gabriel es parte del Furry Fandom, y si conoces sus cuentas,
+                            supongo
+                            que... ¿lo siento? <br/>
+                            <i>Y también, ¿cómo es que no te ha bloqueado...?</i>
+                        </p>
+                        <p id="content">
+                            <i>Y si no las conoces, te lo ahorro, NO las busques. No quieres encontrar eso. Él prefiere
+                                mantener esa personalidad separada de lo que normalmente muestra en
+                                redes. Además, ya es suficiente con su perfil público, ¿no crees?</i>
+                        </p>
+                        <p id="content">
+                            ;3
+                            <span><span><span><span><span><!-- Solo déjame ser --></span></span></span></span></span>
                         </p>
                     </div>
                 </div>
@@ -93,7 +106,8 @@
             span.innerHTML = `${Math.floor((new Date() - bd) / 31536000000)}`
         </script>
 
-        <%- include("../../src/partials/footer") %>
+        <%- include("../../../static/partials/footer") %>
 </body>
 
 </html>
+<%- include("../../../static/partials/loading") %>
