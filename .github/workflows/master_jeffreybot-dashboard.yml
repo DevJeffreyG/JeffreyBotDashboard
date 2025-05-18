@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'Production'
+      name: 'production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
       id-token: write #This is required for requesting the JWT
@@ -63,6 +63,6 @@ jobs:
         id: deploy-to-webapp
         with:
           app-name: 'jeffreybot-dashboard'
-          slot-name: 'production'
+          slot-name: 'Production'
           package: ./jb.zip
           
