@@ -1,8 +1,7 @@
 const Express = require("express")();
 const superagent = require("superagent");
-const { ValidateToken, GenerateServerAuth, Decrypt} = require("../utils/Functions");
+const { ValidateToken, GenerateServerAuth, Decrypt } = require("../utils/Functions");
 const { EmbedBuilder, codeBlock } = require("discord.js");
-const jwt = require("jsonwebtoken");
 const Session = require("../utils/Session");
 
 /**
@@ -54,14 +53,14 @@ module.exports = (app) => {
         res.sendStatus(200)
     })
 
-    app.post("/api/refresh-discord", async (req, res) => {        
+    app.post("/api/refresh-discord", async (req, res) => {
         if (!ValidateToken(req, res)) return res.sendStatus(401);
-        if(!req.cookies.refresh_token) return res.status(403).send("no refresh_token available");
+        if (!req.cookies.refresh_token) return res.status(403).send("no refresh_token available");
         const refresh_token = Decrypt(req.cookies.refresh_token, process.env.APP_SECRET);
 
         console.log("old refresh:", refresh_token);
 
-        if(!refresh_token) return res.sendStatus(403);
+        if (!refresh_token) return res.sendStatus(403);
 
         // llamar al api de discord
         const auth_query = await superagent.post(`${Session.API_ENDPOINT}/oauth2/token`)
@@ -74,7 +73,7 @@ module.exports = (app) => {
             .type("application/x-www-form-urlencoded")
             .catch(console.error);
 
-        if(!auth_query || auth_query.badRequest) return res.sendStatus(403);
+        if (!auth_query || auth_query.badRequest) return res.sendStatus(403);
 
         console.log("CORRECT RESPONSE DISCORD");
 

@@ -7,7 +7,7 @@ const Bases = {
 };
 
 const { Locale, Session } = require("../utils");
-const { ValidateToken, Markdown, GenerateServerAuth, Encrypt, Decrypt } = require("../utils/Functions");
+const { ValidateToken, Markdown, GenerateServerAuth, Encrypt } = require("../utils/Functions");
 
 const superagent = require("superagent");
 const Express = require("express")();
@@ -331,7 +331,6 @@ module.exports = (app) => {
             if (key[0].includes("fetchedGuild")) res.clearCookie(key[0]);
         }
 
-
-        res.redirect(req.query.redirect)
+        res.redirect(req.query.redirect ?? "/")
     }
 }

@@ -23,8 +23,8 @@ class SessionManager {
         let finding = this.sessions.find(x => x.uuid === searchUUID);
         if (!finding) {
             if (!req.cookies.uuid) {
-                let gen = Encrypt(uuid.v6());
-                res.cookie("uuid", gen, { maxAge: ms("400d") });
+                let gen = uuid.v6();
+                res.cookie("uuid", Encrypt(gen), { maxAge: ms("400d") });
                 this.sessions.push(new Session(gen));
 
                 return this.sessions.at(-1)

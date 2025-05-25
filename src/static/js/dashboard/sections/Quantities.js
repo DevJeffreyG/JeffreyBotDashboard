@@ -62,7 +62,7 @@ class Quantities extends Section {
 
         this.addSubSection("Ignorar notificaciones", "ignore_notifications", [
             Section.subtitle("DEV ONLY (WIP)"),
-            new NumberSelector("youtube_videos", "Días pasados para ignorar (Vídeos)", { placeholder: "14", min: 1 }),
+            new NumberSelector("youtube_videos", "Días pasados para ignorar (Videos)", { placeholder: "14", min: 1 }),
             new NumberSelector("youtube_shorts", "Días pasados para ignorar (Shorts)", { placeholder: "14", min: 1 })
         ])
     }

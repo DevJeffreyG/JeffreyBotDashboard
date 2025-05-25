@@ -448,7 +448,7 @@ class Section {
             let parent = htmlElement.closest("div.section");
             let allReq = parent.querySelectorAll("div.item");
 
-            let changed = Array.from(allReq).filter(x => typeof x.parentElement.dataset.ignoreSync != "undefined").flatMap(x => x.firstElementChild.id);
+            let changed = Array.from(allReq).filter(x => typeof x.parentElement.dataset.ignoreSync != "undefined" && x.firstElementChild.id?.length > 0).flatMap(x => x.firstElementChild.id);
             for (const req of changed) {
                 if (!Section.getChange(req)) {
                     isValid = false

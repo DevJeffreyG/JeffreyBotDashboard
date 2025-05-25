@@ -58,7 +58,7 @@ module.exports = (app) => {
         console.log("pending cookieupdate:", session.pendingCookieUpdate);
 
         // Si hay un usuario de discord, y la cookie refresh no existe o no hay autenticación
-        if(session.refresh && session.pendingCookieUpdate)
+        if (session.refresh && session.pendingCookieUpdate)
             session.updateRefreshCookie(res);
 
         next()

@@ -29,7 +29,10 @@
 
             const logout = document.querySelector("#logout");
             logout?.addEventListener("click", () => {
-                window.location.replace("/logout")
+                let redirect = window.location.pathname;
+                if (redirect.includes("/dashboard/")) redirect = "/";
+
+                window.location.replace(`/logout?redirect=${redirect}`)
             })
 
             const viewport = document.createElement("meta")

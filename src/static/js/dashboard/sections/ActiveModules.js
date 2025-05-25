@@ -28,7 +28,12 @@ class ActiveModules extends Section {
         this.addSubSection("Logs de STAFF", "logs-staff", [
             new BoolSelector("tickets", "Tickets"),
             new BoolSelector("settings", "Configuraciones").setEffect(Selector.Effects.Recommended, "Registra y notifica los cambios realizados en la configuración de Jeffrey Bot."),
-            new BoolSelector("errors", "Errores").setEffect(Selector.Effects.Recommended, "Si hay algun error en la configuración, no podrías saberlo si esto no está activo.")
+            new BoolSelector("errors", "Errores").setEffect(Selector.Effects.Recommended, "Si hay algun error en la configuración, no podrías saberlo si esto no está activo."),
+            new BoolSelector("automated_changes", "Cambios automáticos").setHelp("Cambios hechos automáticamente.")
+        ])
+        this.addSubSection("Logs de DarkShop", "logs-darkshop", [
+            new BoolSelector("sunday", "Domingos").setHelp("Se envía un mensaje cada domingo incluyendo la inflación del día."),
+            new BoolSelector("removed_currency", "Eliminación de inversión").setHelp("Cambio automático. Se envía un mensaje cada domingo, cuando se elimina la inversión vieja de los usuarios.")
         ])
         this.addSubSection("Auto moderación", "automoderation", [
             new BoolSelector("remove_links", "Eliminar links").setHelp("Elimina mensajes de usuarios que contienen links y no tienen el permiso de 'Insertar Links/Embed Links'.")
