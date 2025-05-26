@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <%- include("../static/partials/meta/changelog") %>
     <title>Jeffrey Bot - Cambios</title>
     <script src="https://cdn.jsdelivr.net/gh/dixonandmoe/rellax@master/rellax.min.js"></script>
     <%- include("../static/partials/styles") %>
@@ -14,6 +15,10 @@
         <div class="rellax-container first">
             <div style="background-image: linear-gradient(to bottom, var(--dark), var(--primary), var(--dark)); height: 100%; width: 100%;"></div>
         </div>
+        <script>let findChange = null;</script>
+        <% if(session && req.query["change"]) {%>
+            <script>findChange = '<%- req.query["change"] %>';</script>
+        <%}%>
         <% if(session && req.query["show-panel"]){%>
             <script>
                 if (<%- Bases.devIds.find(x => x === session.discord_user?.id) %>) {
@@ -135,6 +140,15 @@
                             }
                             
                             db.sort((a, b) => Date.parse(b.timestamp) - Date.parse(a.timestamp));
+
+                            let customChangelogIndex = db.findIndex(x => x.version === findChange)
+
+                            if(customChangelogIndex != -1) {
+                                let item = db[customChangelogIndex]
+                                db.splice(customChangelogIndex, 1);
+                                db.unshift(item);
+                            }
+
                             db = loadMoreChanges(db);
 
                             document.body.dataset.loaded = ""
