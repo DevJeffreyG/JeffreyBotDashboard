@@ -196,6 +196,11 @@
                             const slogan = document.createElement("p")
                             slogan.className = "slogan";
 
+                            const share = document.createElement("span")                            
+                            share.className = "material-symbols-rounded share-change"
+                            share.innerText = "link"                            
+                            share.dataset.version = String(changelog.version);
+
                             const changes = document.createElement("p");
                             changes.id = "changelogList";
 
@@ -205,7 +210,19 @@
                             if(changelog.slogan) slogan.innerText = changelog.slogan;
                                 else slogan.remove();
 
+                            version.appendChild(share)
                             if(slogan) version.appendChild(slogan)
+
+                            share.addEventListener("click", (e) => {
+                                e.target.classList.add("clicked")
+                                e.target.innerText = "check"
+                                navigator.clipboard.writeText(`${window.location.origin}${window.location.pathname}?change=${encodeURIComponent(e.target.dataset.version)}`);
+
+                                setTimeout(() => {
+                                    e.target.classList.remove("clicked")
+                                    e.target.innerText = "link"
+                                }, 3000);
+                            })
 
                             // cambios
                             changelog.changes.sort((a, b) => a.type - b.type)

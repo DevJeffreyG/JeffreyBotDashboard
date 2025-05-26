@@ -589,3 +589,14 @@ img#ref {
 
     white-space: nowrap;
 }
+
+.share-change {
+    position: absolute;
+    cursor: pointer;
+
+    transition: all .1s ease;
+}
+
+.share-change.clicked {
+    color: var(--primary);
+}
