@@ -33,8 +33,8 @@
                 .then(res => {
                     const Markdown = <%- Markdown %>;
 
-                    if(!res) {                        
-                        document.querySelector("#content").innerHTML = Markdown("No pudimos comunicarnos con **[Jeffrey Bot](/status)**, inténtalo más tarde.")
+                    if (!res) {                        
+                        document.querySelector("#content").innerHTML = Markdown("No pudimos comunicarnos con **[Jeffrey Bot](/status)**, inténtalo más tarde. ¡Contacta a Jeff si es urgente, disculpa las molestias!")
                         document.body.dataset.loaded = ""
                         return;
                     }
@@ -42,7 +42,8 @@
                     document.querySelector("#privacyDate").innerText = moment(res.info.privacy_since).format("DD/MM/YYYY");
                     document.querySelector("#content").innerHTML = Markdown(res.info.privacy);
 
-                    document.body.dataset.loaded = ""
+                    document.body.dataset.loaded = "";
+                    return;
                 })
                 .catch(console.error)
         </script>

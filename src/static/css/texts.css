@@ -51,3 +51,8 @@ p#changelogList br {
     font-size: 1.7em;
     font-weight: bolder;
 }
+
+.whispering {
+    font-size: .7em;
+    opacity: .4;
+}
