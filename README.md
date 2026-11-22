@@ -9,9 +9,9 @@
 </div>
 
 # ⭐ Acerca de
-La página web de **[Jeffrey Bot](https://github.com/DevJeffreyG/JeffreyBot)**. Información del bot y su creador además de tener la **Dashboard** para **configurar y administrar** el comportamiento del bot en un servidor.
+La página web de **[Jeffrey Bot](https://github.com/DevJeffreyG/JeffreyBot)**. Información del bot y su creador. Además de tener la **Dashboard** para **configurar y administrar** el comportamiento del bot en un servidor.
 
 # 💚 Créditos
-- ### [Express](https://github.com/expressjs/express).
+- ### [Vue](https://vuejs.org/).
 - ### [Discord.JS](https://github.com/discordjs/discord.js).
 - ### [MongoDB (mongoose)](https://www.mongodb.com).

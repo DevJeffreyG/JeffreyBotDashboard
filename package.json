@@ -1,24 +1,34 @@
 {
   "name": "jeffreybotdashboard",
-  "version": "1.2.3",
+  "private": true,
+  "version": "2.0.0",
   "description": "The dashboard that works with DevJeffreyG's discord bot configuration, and information center",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon -x \"cls && node\" src/index.js"
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview"
   },
   "author": "DevJeffreyG",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.20.3",
-    "cookie-parser": "^1.4.7",
-    "discord.js": "^14.17.3",
-    "dotenv": "^16.4.7",
-    "ejs": "^3.1.10",
-    "express": "^4.21.2",
-    "jsonwebtoken": "^9.0.2",
-    "path": "^0.12.7",
-    "superagent": "^10.1.1",
-    "uuid": "^11.1.0"
+    "@primeuix/themes": "^3.0.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "@vueuse/core": "^14.4.0",
+    "@vueuse/integrations": "^14.4.0",
+    "moment-timezone": "^0.6.3",
+    "primevue": "^5.0.0",
+    "tailwindcss": "^4.3.3",
+    "universal-cookie": "^7.2.2",
+    "vue": "^3.5.40",
+    "vue-router": "^5.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "@vitejs/plugin-vue": "^6.0.8",
+    "@vue/tsconfig": "^0.9.1",
+    "typescript": "~6.0.2",
+    "vite": "^8.2.0",
+    "vue-tsc": "^3.3.8"
   }
 }
